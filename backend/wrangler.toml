@@ -1,0 +1,10 @@
+name = "hono-backend"
+main = "src/index.ts"
+compatibility_date = "2024-04-01"
+
+# D1 データベースの設定
+[[d1_databases]]
+binding = "DB" # Honoのコード内で c.env.DB としてアクセスする名前
+database_name = "my-d1-db"
+database_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" # 本番用（後でCloudflareで生成予定）
+migrations_dir = "drizzle" # Drizzleが書き出すマイグレーションファイルの場所
