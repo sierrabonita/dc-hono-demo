@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import { z } from 'zod';
 import { eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
 import { users } from './db/schema';
@@ -23,6 +24,16 @@ app.use(
     maxAge: 600, // ブラウザキャッシュ（秒）
   })
 );
+
+const createUserSchema = z.object({
+  name: z.string().min(1, { message: '名前は必須です' }),
+  email: z.string().email({ message: '無効なメールアドレス形式です' }),
+});
+
+const updateUserSchema = z.object({
+  name: z.string().min(1, { message: '名前は1文字以上で入力してください' }).optional(),
+  email: z.string().email({ message: '無効なメールアドレス形式です' }).optional(),
+});
 
 // GET
 app.get('/users', async (c) => {
@@ -52,10 +63,17 @@ app.get('/users/:id', async (c) =>{
 app.post('/users', async (c) => {
   const db = drizzle(c.env.DB);
   const body = await c.req.json<{ name: string; email: string }>();
-  
+  const resultSchema = createUserSchema.safeParse(body);
+
+  if (!resultSchema.success) {
+    return c.json({ success: false, error: resultSchema.error }, 400);
+  }
+
+  const validatedBody = resultSchema.data;
+
   const result = await db.insert(users).values({
-    name: body.name,
-    email: body.email,
+    name: validatedBody.name,
+    email: validatedBody.email,
   }).returning();
 
   return c.json({ success: true, user: result[0] }, 201);
@@ -65,11 +83,21 @@ app.post('/users', async (c) => {
 app.put('/users/:id', async (c) => {
   const db = drizzle(c.env.DB);
   const id = Number(c.req.param('id'))
-  const body = await c.req.json<{ name: string; email: string }>();
+
+  if (isNaN(id)) return c.json({ error: '無効なID形式です' }, 400);
+
+  const body = await c.req.json();
+  const resultSchema = updateUserSchema.safeParse(body);
+
+  if (!resultSchema.success) {
+    return c.json({ success: false, error: resultSchema.error }, 400);
+  }
+
+  const validatedBody = resultSchema.data;
 
   const updateUser = await db.update(users).set({
-    ...(body.name && {name: body.name}),
-    ...(body.email && {email: body.email}),
+    ...(validatedBody.name && {name: validatedBody.name}),
+    ...(validatedBody.email && {email: validatedBody.email}),
   })
   .where(eq(users.id, id))
   .returning()
