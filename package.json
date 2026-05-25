@@ -1,0 +1,27 @@
+{
+  "name": "dc-hono-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "biome check",
+    "format": "biome format --write"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sierrabonita/dc-hono-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sierrabonita/dc-hono-demo/issues"
+  },
+  "homepage": "https://github.com/sierrabonita/dc-hono-demo#readme",
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.15"
+  }
+}
