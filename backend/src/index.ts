@@ -50,6 +50,8 @@ app.get('/users/:id', async (c) =>{
   const db = drizzle(c.env.DB);
   const id = Number(c.req.param('id'))
 
+  if (isNaN(id)) return c.json({ error: '無効なID形式です' }, 400);
+
   const user = await db.select().from(users).where(eq(users.id, id)).get();
 
   if(!user) {
@@ -115,6 +117,8 @@ app.put('/users/:id', async (c) => {
 app.delete('/users/:id', async (c) => {
   const db = drizzle(c.env.DB);
   const id = Number(c.req.param('id'))
+
+  if (isNaN(id)) return c.json({ error: '無効なID形式です' }, 400);
 
   const deletedUser = await db.delete(users).where(eq(users.id, id)).returning().get()
 
