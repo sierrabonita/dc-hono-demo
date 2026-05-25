@@ -1,4 +1,5 @@
 import { Hono } from 'hono';
+import { cors } from 'hono/cors';
 import { eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
 import { users } from './db/schema';
@@ -9,6 +10,19 @@ type Bindings = {
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
+
+app.use(
+  '/*',
+  cors({
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:5173'
+    ],
+    allowHeaders: ['Content-Type', 'Authorization'],
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    maxAge: 600, // ブラウザキャッシュ（秒）
+  })
+);
 
 // GET
 app.get('/users', async (c) => {
