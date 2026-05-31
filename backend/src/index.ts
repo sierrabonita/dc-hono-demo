@@ -97,7 +97,7 @@ app.put('/users/:id', async (c) => {
 
   const validatedBody = resultSchema.data;
 
-  const updateUser = await db
+  const updatedUser = await db
     .update(users)
     .set({
       ...(validatedBody.name && { name: validatedBody.name }),
@@ -107,11 +107,11 @@ app.put('/users/:id', async (c) => {
     .returning()
     .get();
 
-  if (!updateUser) {
+  if (!updatedUser) {
     return c.json({ error: 'ユーザーが見つかりません' }, 404);
   }
 
-  return c.json({ success: true, user: updateUser });
+  return c.json({ success: true, user: updatedUser });
 });
 
 //DELETE
