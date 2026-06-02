@@ -10,7 +10,9 @@
     "db:migrate:prod": "wrangler d1 migrations apply my-d1-db --remote"
   },
   "dependencies": {
+    "@hono/graphql-server": "^0.7.0",
     "drizzle-orm": "latest",
+    "graphql": "^16.14.1",
     "hono": "^4.0.0",
     "zod": "^4.4.3"
   },
