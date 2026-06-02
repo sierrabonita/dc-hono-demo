@@ -1,5 +1,5 @@
 import { graphqlServer } from '@hono/graphql-server';
-import { eq } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
 import { buildSchema, GraphQLError } from 'graphql';
 import { Hono } from 'hono';
@@ -12,6 +12,8 @@ const schema = buildSchema(`
     id: Int!
     name: String!
     email: String!
+    createdAt: String!
+    updatedAt: String!
   }
 
   type Query {
@@ -111,6 +113,7 @@ app.use(
             .set({
               ...(validData.name && { name: validData.name }),
               ...(validData.email && { email: validData.email }),
+              updatedAt: sql`CURRENT_TIMESTAMP`,
             })
             .where(eq(users.id, args.id))
             .returning()
