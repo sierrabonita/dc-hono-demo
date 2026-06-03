@@ -1,15 +1,19 @@
-FROM node:24-bookworm-slim
+FROM node:22-bookworm-slim
 
 WORKDIR /app
 
-COPY package*.json ./
+# Corepackの有効化とYarn v4の準備
+RUN corepack enable && corepack prepare yarn@4.16.0 --activate
+
+# 設定ファイルとロックファイルを先にコピーしてパッケージをインストール
+COPY package.json yarn.lock* .yarnrc.yml* ./
+
 RUN yarn install
 
-# ソースコードをコピー
+# 残りのソースコードをコピー
 COPY . .
 
-# Viteのデフォルトポート
 EXPOSE 5173
 
-# Docker環境でViteを動かすための起動コマンド（--host が必須）
+# Viteをコンテナ外からアクセス可能にする
 CMD ["yarn", "dev", "--host"]

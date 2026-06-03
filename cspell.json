@@ -21,7 +21,7 @@
   ],
   "dictionaryDefinitions": [],
   "dictionaries": [],
-  "words": ["autoincrement", "hono", "vite"],
+  "words": ["autoincrement", "codegen", "hono","minifiable", "urql", "vite", "yarnrc"],
   "ignoreWords": [],
   "import": []
 }
