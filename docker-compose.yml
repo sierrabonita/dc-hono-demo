@@ -9,6 +9,7 @@ services:
       - wrangler-local-state:/app/.wrangler
     ports:
       - "3001:3001"
+    command: sh -c "yarn install && yarn dev"
 
 volumes:
   wrangler-local-state:

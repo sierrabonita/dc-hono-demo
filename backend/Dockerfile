@@ -2,10 +2,12 @@ FROM node:22-bookworm-slim
 
 WORKDIR /app
 
-COPY package*.json ./
+RUN corepack enable && corepack prepare yarn@4.16.0 --activate
 
-RUN npm install
+COPY package.json yarn.lock* ./
+
+RUN yarn install
 
 COPY . .
 
-CMD ["npm", "run", "dev"]
+CMD ["yarn", "dev"]
