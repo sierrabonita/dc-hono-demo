@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "spellcheck": "cspell \"**/*.{ts,tsx,js,jsx,json,md}\" --config cspell.json"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,8 @@
   },
   "homepage": "https://github.com/sierrabonita/dc-hono-demo#readme",
   "devDependencies": {
-    "@biomejs/biome": "^2.4.15"
+    "@biomejs/biome": "^2.4.15",
+    "cspell": "^10.0.1"
   },
   "volta": {
     "node": "26.3.0",

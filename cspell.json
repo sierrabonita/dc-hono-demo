@@ -1,0 +1,28 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "useGitignore": true,
+  "ignoreRegExpList": [
+    "/[^\\x20-\\x7E]+/g"
+  ],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.git/**",
+    "**/.turbo/**",
+    "**/.wrangler/**",
+    "**/.vite/**",
+    "**/package-lock.json",
+    "**/yarn.lock",
+    "**/*.svg",
+    "**/*.png",
+    "**/*.jpg"
+  ],
+  "dictionaryDefinitions": [],
+  "dictionaries": [],
+  "words": ["autoincrement", "hono", "vite"],
+  "ignoreWords": [],
+  "import": []
+}
+
