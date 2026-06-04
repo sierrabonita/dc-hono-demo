@@ -5,13 +5,14 @@ import { buildSchema, GraphQLError } from 'graphql';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { z } from 'zod';
-import { users } from './db/schema';
+import { usersTable } from './db/schema/users';
 
 const schema = buildSchema(`
   type User {
     id: Int!
     name: String!
     email: String!
+    role: Int!
     createdAt: String!
     updatedAt: String!
   }
@@ -66,10 +67,10 @@ app.use(
 
       return {
         users: async () => {
-          return await db.select().from(users).all();
+          return await db.select().from(usersTable).all();
         },
         user: async ({ id }: { id: number }) => {
-          const user = await db.select().from(users).where(eq(users.id, id)).get();
+          const user = await db.select().from(usersTable).where(eq(usersTable.id, id)).get();
 
           if (!user) {
             throw new GraphQLError('ユーザーが見つかりません', {
@@ -89,7 +90,7 @@ app.use(
 
           const validData = result.data;
           const newUser = await db
-            .insert(users)
+            .insert(usersTable)
             .values({ name: validData.name, email: validData.email })
             .returning()
             .get();
@@ -105,27 +106,39 @@ app.use(
 
           const validData = result.data;
 
-          const existingUser = await db.select().from(users).where(eq(users.id, args.id)).get();
+          const existingUser = await db
+            .select()
+            .from(usersTable)
+            .where(eq(usersTable.id, args.id))
+            .get();
           if (!existingUser) throw new GraphQLError('更新対象のユーザーが見つかりません');
 
           const updatedUser = await db
-            .update(users)
+            .update(usersTable)
             .set({
               ...(validData.name && { name: validData.name }),
               ...(validData.email && { email: validData.email }),
               updatedAt: sql`CURRENT_TIMESTAMP`,
             })
-            .where(eq(users.id, args.id))
+            .where(eq(usersTable.id, args.id))
             .returning()
             .get();
 
           return updatedUser;
         },
         deleteUser: async ({ id }: { id: number }) => {
-          const existingUser = await db.select().from(users).where(eq(users.id, id)).get();
+          const existingUser = await db
+            .select()
+            .from(usersTable)
+            .where(eq(usersTable.id, id))
+            .get();
           if (!existingUser) throw new GraphQLError('削除対象のユーザーが見つかりません');
 
-          const deletedUser = await db.delete(users).where(eq(users.id, id)).returning().get();
+          const deletedUser = await db
+            .delete(usersTable)
+            .where(eq(usersTable.id, id))
+            .returning()
+            .get();
 
           return deletedUser;
         },
