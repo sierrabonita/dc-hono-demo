@@ -4,8 +4,10 @@ import { drizzle } from 'drizzle-orm/d1';
 import { buildSchema, GraphQLError } from 'graphql';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import { sign } from 'hono/jwt';
 import { z } from 'zod';
 import { usersTable } from './db/schema/users';
+import { hashPassword, verifyPassword } from './utils/crypto';
 
 const schema = buildSchema(`
   type User {
@@ -17,31 +19,45 @@ const schema = buildSchema(`
     updatedAt: String!
   }
 
+  type AuthPayload {
+    token: String!
+    user: User!
+  }
+
   type Query {
     users: [User!]!
     user(id: Int!): User
   }
 
   type Mutation {
-    createUser(name: String!, email: String!): User!
-    updateUser(id: Int!, name: String, email: String): User
+    createUser(name: String!, email: String!, password: String!): User!
+    updateUser(id: Int!, name: String, email: String, password: String): User
     deleteUser(id: Int!): User
+    login(email: String!, password: String!): AuthPayload!
   }
 `);
 
 // Cloudflareの環境変数の型定義
 type Bindings = {
   DB: D1Database;
+  JWT_SECRET: string;
 };
 
 const createUserSchema = z.object({
   name: z.string().min(1, { message: '名前は必須です' }),
   email: z.string().email({ message: '無効なメールアドレス形式です' }),
+  password: z.string().min(6, { message: 'パスワードは6文字以上で入力してください' }),
 });
 
 const updateUserSchema = z.object({
   name: z.string().min(1, { message: '名前は1文字以上で入力してください' }).optional(),
   email: z.string().email({ message: '無効なメールアドレス形式です' }).optional(),
+  password: z.string().min(6, { message: 'パスワードは6文字以上で入力してください' }).optional(),
+});
+
+const loginSchema = z.object({
+  email: z.string().email({ message: '無効なメールアドレス形式です' }),
+  password: z.string().min(1, { message: 'パスワードを入力してください' }),
 });
 
 const app = new Hono<{ Bindings: Bindings }>();
@@ -80,7 +96,7 @@ app.use(
 
           return user;
         },
-        createUser: async (args: { name: string; email: string }) => {
+        createUser: async (args: { name: string; email: string; password: string }) => {
           const result = createUserSchema.safeParse(args);
 
           if (!result.success) {
@@ -89,14 +105,21 @@ app.use(
           }
 
           const validData = result.data;
+          const hashedPassword = await hashPassword(validData.password);
+
           const newUser = await db
             .insert(usersTable)
-            .values({ name: validData.name, email: validData.email })
+            .values({ name: validData.name, email: validData.email, password: hashedPassword })
             .returning()
             .get();
           return newUser;
         },
-        updateUser: async (args: { id: number; name?: string; email?: string }) => {
+        updateUser: async (args: {
+          id: number;
+          name?: string;
+          email?: string;
+          password?: string;
+        }) => {
           const result = updateUserSchema.safeParse(args);
 
           if (!result.success) {
@@ -113,11 +136,16 @@ app.use(
             .get();
           if (!existingUser) throw new GraphQLError('更新対象のユーザーが見つかりません');
 
+          let finalPassword = existingUser.password;
+          if (validData.password) {
+            finalPassword = await hashPassword(validData.password);
+          }
           const updatedUser = await db
             .update(usersTable)
             .set({
               ...(validData.name && { name: validData.name }),
               ...(validData.email && { email: validData.email }),
+              password: finalPassword,
               updatedAt: sql`CURRENT_TIMESTAMP`,
             })
             .where(eq(usersTable.id, args.id))
@@ -141,6 +169,39 @@ app.use(
             .get();
 
           return deletedUser;
+        },
+        login: async (args: { email: string; password: string }) => {
+          const result = loginSchema.safeParse(args);
+
+          if (!result.success) {
+            throw new GraphQLError('メールアドレスまたはパスワードが正しくありません');
+          }
+
+          const { email, password } = result.data;
+          const user = await db.select().from(usersTable).where(eq(usersTable.email, email)).get();
+
+          if (!user) {
+            throw new GraphQLError('メールアドレスまたはパスワードが正しくありません');
+          }
+
+          const isValidPassword = await verifyPassword(password, user.password);
+
+          if (!isValidPassword) {
+            throw new GraphQLError('メールアドレスまたはパスワードが正しくありません');
+          }
+
+          const payload = {
+            id: user.id,
+            role: user.role,
+            exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24, // 有効期限（現在の時刻 + 24時間）
+          };
+
+          const token = await sign(payload, c.env.JWT_SECRET);
+
+          return {
+            token,
+            user,
+          };
         },
       };
     },
