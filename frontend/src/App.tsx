@@ -8,7 +8,9 @@ const GET_USERS = graphql(`
       id
       name
       email
+      role
       createdAt
+      updatedAt
     }
   }
 `);
@@ -26,7 +28,7 @@ function App() {
       <ul>
         {data?.users.map((user) => (
           <li key={user.id}>
-            {user.name} ({user.email}) - 登録日: {user.createdAt}
+            {user.name} ({user.email}) - 登録日: {user.createdAt} - 更新日: {user.updatedAt} - 権限: {user.role === 1 ? '管理者' : '一般ユーザー'}
           </li>
         ))}
       </ul>
