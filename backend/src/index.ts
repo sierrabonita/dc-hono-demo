@@ -6,8 +6,8 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { sign } from 'hono/jwt';
 import { z } from 'zod';
-import { usersTable } from './db/schema/users';
-import { hashPassword, verifyPassword } from './utils/crypto';
+import { usersTable } from '@/db/schema/users';
+import { hashPassword, verifyPassword } from '@/utils/crypto';
 
 const schema = buildSchema(`
   type User {
