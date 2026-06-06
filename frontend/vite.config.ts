@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'node:url';
 
 export default defineConfig({
@@ -16,4 +16,4 @@ export default defineConfig({
       usePolling: true, // Docker環境でのファイル変更検知を確実にする
     },
   },
-})
+});

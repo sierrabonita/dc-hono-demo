@@ -2,9 +2,7 @@
   "version": "0.2",
   "language": "en",
   "useGitignore": true,
-  "ignoreRegExpList": [
-    "/[^\\x20-\\x7E]+/g"
-  ],
+  "ignoreRegExpList": ["/[^\\x20-\\x7E]+/g"],
   "ignorePaths": [
     "**/node_modules/**",
     "**/dist/**",
@@ -21,8 +19,7 @@
   ],
   "dictionaryDefinitions": [],
   "dictionaries": [],
-  "words": ["autoincrement", "chakra", "codegen", "hono","minifiable", "urql", "vite", "yarnrc"],
+  "words": ["autoincrement", "chakra", "codegen", "hono", "minifiable", "urql", "vite", "yarnrc"],
   "ignoreWords": [],
   "import": []
 }
-
