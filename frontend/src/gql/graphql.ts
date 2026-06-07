@@ -11,9 +11,7 @@ export type LoginMutationVariables = Exact<{
   password: string;
 }>;
 
-export type LoginMutation = {
-  login: { token: string; user: { id: number; name: string; role: number } };
-};
+export type LoginMutation = { login: { user: { id: number; name: string; role: number } } };
 
 export const LoginDocument = {
   kind: 'Document',
@@ -61,7 +59,6 @@ export const LoginDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'token' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'user' },

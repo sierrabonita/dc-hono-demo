@@ -14,10 +14,10 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-  '\n  mutation Login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n      token\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n': typeof types.LoginDocument;
+  '\n  mutation Login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n': typeof types.LoginDocument;
 };
 const documents: Documents = {
-  '\n  mutation Login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n      token\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n':
+  '\n  mutation Login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n':
     types.LoginDocument,
 };
 
@@ -39,8 +39,8 @@ export function graphql(source: string): unknown;
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  mutation Login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n      token\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n',
-): (typeof documents)['\n  mutation Login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n      token\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n'];
+  source: '\n  mutation Login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation Login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n'];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
