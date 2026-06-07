@@ -9,6 +9,9 @@ import { Provider as ChakraProvider } from '@/libs/chakra';
 const client = new Client({
   url: 'http://localhost:3001/graphql', // HonoバックエンドのURL
   exchanges: [cacheExchange, fetchExchange],
+  fetchOptions: {
+    credentials: 'include', // HttpOnly Cookieを自動的にサーバーに送信する
+  },
 });
 
 createRoot(document.getElementById('root')!).render(

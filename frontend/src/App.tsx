@@ -1,39 +1,17 @@
-import { useQuery } from 'urql';
-import { graphql } from './gql/index';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import Home from '@/pages/home';
+import Login from '@/pages/login';
 
-// 実行するGraphQLクエリの定義
-const GET_USERS = graphql(`
-  query GetUsers {
-    users {
-      id
-      name
-      email
-      role
-      createdAt
-      updatedAt
-    }
-  }
-`);
-
-function App() {
-  const [result] = useQuery({ query: GET_USERS });
-  const { data, fetching, error } = result;
-
-  if (fetching) return <p>ロード中...</p>;
-  if (error) return <p>エラーが発生しました: {error.message}</p>;
-
+const App = () => {
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>ユーザー一覧</h1>
-      <ul>
-        {data?.users.map((user) => (
-          <li key={user.id}>
-            {user.name} ({user.email}) - 登録日: {user.createdAt} - 更新日: {user.updatedAt} - 権限: {user.role === 1 ? '管理者' : '一般ユーザー'}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

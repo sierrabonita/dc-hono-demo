@@ -2,6 +2,7 @@ import { eq, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
 import { GraphQLError } from 'graphql';
 import type { Context } from 'hono';
+import { setCookie } from 'hono/cookie';
 import { sign } from 'hono/jwt';
 import { usersTable } from '@/db/schema/users';
 import { createUserSchema, loginSchema, updateUserSchema } from '@/libs/zod';
@@ -120,8 +121,15 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
 
       const token = await sign(payload, c.env.JWT_SECRET);
 
+      setCookie(c, 'auth_token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // 本番環境ではtrue
+        sameSite: 'Lax', // 開発環境でポートが異なる場合はLaxに設定
+        path: '/',
+        maxAge: 60 * 60 * 24,
+      });
+
       return {
-        token,
         user,
       };
     },
