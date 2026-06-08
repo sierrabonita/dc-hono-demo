@@ -14,9 +14,11 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
+  '\n  mutation Logout {\n    logout\n  }\n': typeof types.LogoutDocument;
   '\n  mutation Login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n': typeof types.LoginDocument;
 };
 const documents: Documents = {
+  '\n  mutation Logout {\n    logout\n  }\n': types.LogoutDocument,
   '\n  mutation Login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n':
     types.LoginDocument,
 };
@@ -35,6 +37,12 @@ const documents: Documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  mutation Logout {\n    logout\n  }\n',
+): (typeof documents)['\n  mutation Logout {\n    logout\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

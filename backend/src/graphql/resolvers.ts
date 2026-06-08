@@ -2,7 +2,7 @@ import { eq, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
 import { GraphQLError } from 'graphql';
 import type { Context } from 'hono';
-import { setCookie } from 'hono/cookie';
+import { deleteCookie, setCookie } from 'hono/cookie';
 import { sign } from 'hono/jwt';
 import { usersTable } from '@/db/schema/users';
 import { createUserSchema, loginSchema, updateUserSchema } from '@/libs/zod';
@@ -132,6 +132,15 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
       return {
         user,
       };
+    },
+    logout: async () => {
+      deleteCookie(c, 'auth_token', {
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'Lax',
+      });
+
+      return true;
     },
   };
 };

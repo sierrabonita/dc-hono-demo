@@ -25,5 +25,6 @@ export const typeDefs = buildSchema(`
     updateUser(id: Int!, name: String, email: String, password: String): User
     deleteUser(id: Int!): User
     login(email: String!, password: String!): AuthPayload!
+    logout: Boolean!
   }
 `);
