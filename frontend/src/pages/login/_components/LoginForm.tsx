@@ -2,9 +2,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'urql';
+import { Field } from '@/components/Field';
+import { toaster } from '@/components/toaster-instance';
 import { graphql } from '@/gql/index';
-import { Box, Button, Container, Field, Heading, Input, Stack } from '@/libs/chakra';
-import { toaster } from '@/libs/chakra/toaster-instance';
+import { Box, Button, Container, Heading, Input, Stack } from '@/libs/chakra';
 import { type LoginDto, loginSchema } from '@/schemas/loginSchema';
 
 const LOGIN_MUTATION = graphql(`
