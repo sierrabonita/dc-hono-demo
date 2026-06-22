@@ -22,5 +22,9 @@
     "@types/node": "^25.9.2",
     "drizzle-kit": "latest",
     "wrangler": "^4.0.0"
+  },
+  "volta": {
+    "node": "26.3.0",
+    "yarn": "4.16.0"
   }
 }
