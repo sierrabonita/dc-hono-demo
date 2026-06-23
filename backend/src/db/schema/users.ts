@@ -12,5 +12,5 @@ export const usersTable = sqliteTable('users', {
   updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`).notNull(),
 });
 
-export type DbUser = typeof usersTable.$inferSelect;
-export type DbNewUser = typeof usersTable.$inferInsert;
+// export type DbUser = typeof usersTable.$inferSelect;
+// export type DbNewUser = typeof usersTable.$inferInsert;

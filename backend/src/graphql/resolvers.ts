@@ -1,5 +1,11 @@
-import { loginSchema } from '@dc-hono-demo/shared/schemas/auth';
-import { createUserSchema, updateUserSchema } from '@dc-hono-demo/shared/schemas/user';
+import { type LoginDto, loginSchema } from '@dc-hono-demo/shared/schemas/auth';
+import {
+  type CreateUserDto,
+  createUserSchema,
+  type DeleteUserDto,
+  type UpdateUserDto,
+  updateUserSchema,
+} from '@dc-hono-demo/shared/schemas/user';
 import { eq, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
 import { GraphQLError } from 'graphql';
@@ -29,7 +35,7 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
 
       return user;
     },
-    createUser: async (args: { name: string; email: string; password: string }) => {
+    createUser: async (args: CreateUserDto) => {
       const result = createUserSchema.safeParse(args);
 
       if (!result.success) {
@@ -42,12 +48,17 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
 
       const newUser = await db
         .insert(usersTable)
-        .values({ name: validData.name, email: validData.email, password: hashedPassword })
+        .values({
+          name: validData.name,
+          email: validData.email,
+          password: hashedPassword,
+          role: validData.role,
+        })
         .returning()
         .get();
       return newUser;
     },
-    updateUser: async (args: { id: number; name?: string; email?: string; password?: string }) => {
+    updateUser: async (args: UpdateUserDto) => {
       const result = updateUserSchema.safeParse(args);
 
       if (!result.success) {
@@ -74,6 +85,7 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
           ...(validData.name && { name: validData.name }),
           ...(validData.email && { email: validData.email }),
           password: finalPassword,
+          ...(validData.role && { role: validData.role }),
           updatedAt: sql`CURRENT_TIMESTAMP`,
         })
         .where(eq(usersTable.id, args.id))
@@ -82,7 +94,7 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
 
       return updatedUser;
     },
-    deleteUser: async ({ id }: { id: number }) => {
+    deleteUser: async ({ id }: DeleteUserDto) => {
       const existingUser = await db.select().from(usersTable).where(eq(usersTable.id, id)).get();
       if (!existingUser) throw new GraphQLError('削除対象のユーザーが見つかりません');
 
@@ -94,7 +106,7 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
 
       return deletedUser;
     },
-    login: async (args: { email: string; password: string }) => {
+    login: async (args: LoginDto) => {
       const result = loginSchema.safeParse(args);
 
       if (!result.success) {
