@@ -11,11 +11,11 @@
     "db:seed:local": "wrangler d1 execute my-d1-db --local --file=src/db/seed.sql"
   },
   "dependencies": {
+    "@dc-hono-demo/shared": "*",
     "@hono/graphql-server": "^0.7.0",
     "drizzle-orm": "latest",
     "graphql": "^16.14.1",
-    "hono": "^4.0.0",
-    "zod": "^4.4.3"
+    "hono": "^4.0.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260525.1",
