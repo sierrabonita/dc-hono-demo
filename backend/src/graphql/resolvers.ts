@@ -1,3 +1,5 @@
+import { loginSchema } from '@dc-hono-demo/shared/schemas/auth';
+import { createUserSchema, updateUserSchema } from '@dc-hono-demo/shared/schemas/user';
 import { eq, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
 import { GraphQLError } from 'graphql';
@@ -5,7 +7,6 @@ import type { Context } from 'hono';
 import { deleteCookie, setCookie } from 'hono/cookie';
 import { sign } from 'hono/jwt';
 import { usersTable } from '@/db/schema/users';
-import { createUserSchema, loginSchema, updateUserSchema } from '@/libs/zod';
 import type { Bindings } from '@/types';
 import { hashPassword, verifyPassword } from '@/utils/crypto';
 

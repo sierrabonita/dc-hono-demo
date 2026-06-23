@@ -1,3 +1,4 @@
+import { type LoginDto, loginSchema } from '@dc-hono-demo/shared/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +7,6 @@ import { Field } from '@/components/Field';
 import { toaster } from '@/components/toaster-instance';
 import { graphql } from '@/gql/index';
 import { Box, Button, Container, Heading, Input, Stack } from '@/libs/chakra';
-import { type LoginDto, loginSchema } from '@/schemas/loginSchema';
 
 const LOGIN_MUTATION = graphql(`
   mutation Login($email: String!, $password: String!) {
