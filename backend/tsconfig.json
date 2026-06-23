@@ -5,7 +5,6 @@
     "moduleResolution": "bundler",
     "strict": true,
     "types": ["node", "@cloudflare/workers-types"],
-
     "paths": {
       "@/*": ["./src/*"],
       "@shared/*": ["./shared/*"]
