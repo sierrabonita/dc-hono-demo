@@ -9,8 +9,8 @@ import { graphql } from '@/gql/index';
 import { Box, Button, Container, Heading, Input, Stack } from '@/libs/chakra';
 
 const LOGIN_MUTATION = graphql(`
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
+  mutation Login($input: LoginInput!) {
+    login(input: $input) {
       user {
         id
         name
@@ -38,8 +38,10 @@ const LoginForm = () => {
 
   const onSubmit = async (data: LoginDto) => {
     const result = await executeMutation({
-      email: data.email,
-      password: data.password,
+      input: {
+        email: data.email,
+        password: data.password,
+      },
     });
 
     if (result.error) {

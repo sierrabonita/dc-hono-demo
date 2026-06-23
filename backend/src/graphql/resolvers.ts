@@ -35,8 +35,8 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
 
       return user;
     },
-    createUser: async (args: CreateUserDto) => {
-      const result = createUserSchema.safeParse(args);
+    createUser: async ({ input }: { input: CreateUserDto }) => {
+      const result = createUserSchema.safeParse(input);
 
       if (!result.success) {
         const errorMessage = result.error.issues.map((e) => e.message).join(', ');
@@ -58,8 +58,8 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
         .get();
       return newUser;
     },
-    updateUser: async (args: UpdateUserDto) => {
-      const result = updateUserSchema.safeParse(args);
+    updateUser: async ({ input }: { input: UpdateUserDto }) => {
+      const result = updateUserSchema.safeParse(input);
 
       if (!result.success) {
         const errorMessage = result.error.issues.map((e) => e.message).join(', ');
@@ -71,7 +71,7 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
       const existingUser = await db
         .select()
         .from(usersTable)
-        .where(eq(usersTable.id, args.id))
+        .where(eq(usersTable.id, validData.id))
         .get();
       if (!existingUser) throw new GraphQLError('更新対象のユーザーが見つかりません');
 
@@ -88,7 +88,7 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
           ...(validData.role && { role: validData.role }),
           updatedAt: sql`CURRENT_TIMESTAMP`,
         })
-        .where(eq(usersTable.id, args.id))
+        .where(eq(usersTable.id, validData.id))
         .returning()
         .get();
 
@@ -106,8 +106,8 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
 
       return deletedUser;
     },
-    login: async (args: LoginDto) => {
-      const result = loginSchema.safeParse(args);
+    login: async ({ input }: { input: LoginDto }) => {
+      const result = loginSchema.safeParse(input);
 
       if (!result.success) {
         throw new GraphQLError('メールアドレスまたはパスワードが正しくありません');

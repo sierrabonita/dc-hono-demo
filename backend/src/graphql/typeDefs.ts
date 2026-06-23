@@ -15,16 +15,37 @@ export const typeDefs = buildSchema(`
     user: User!
   }
 
+  input CreateUserInput {
+    name: String!
+    email: String!
+    password: String!
+    role: Int!
+  }
+
+  input UpdateUserInput {
+    id: Int!
+    name: String
+    email: String
+    password: String
+    role: Int
+  }
+
+  input LoginInput {
+    email: String!
+    password: String!
+  }
+
+
   type Query {
     users: [User!]!
     user(id: Int!): User
   }
 
   type Mutation {
-    createUser(name: String!, email: String!, password: String!): User!
-    updateUser(id: Int!, name: String, email: String, password: String): User
-    deleteUser(id: Int!): User
-    login(email: String!, password: String!): AuthPayload!
+    createUser(input: CreateUserInput!): User!
+    updateUser(input: UpdateUserInput!): User!
+    deleteUser(id: Int!): User!
+    login(input: LoginInput!): AuthPayload!
     logout: Boolean!
   }
 `);
