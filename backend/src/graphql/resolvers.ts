@@ -45,11 +45,13 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
 
       const validData = result.data;
       const hashedPassword = await hashPassword(validData.password);
+      const newSlug = crypto.randomUUID();
 
       const newUser = await db
         .insert(usersTable)
         .values({
           name: validData.name,
+          slug: newSlug,
           email: validData.email,
           password: hashedPassword,
           role: validData.role,

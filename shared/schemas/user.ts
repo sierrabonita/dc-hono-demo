@@ -4,6 +4,7 @@ import { USER_ROLES } from '../constants/roles';
 // ベースとなるUser（GraphQLのレスポンスなどで使用）
 export const userSchema = z.object({
   id: z.number(),
+  slug: z.string(),
   name: z.string().min(1, '名前を入力してください'),
   email: z.string().email('無効なメールアドレス形式です'),
   role: z.union([z.literal(USER_ROLES.NORMAL), z.literal(USER_ROLES.ADMIN)]),

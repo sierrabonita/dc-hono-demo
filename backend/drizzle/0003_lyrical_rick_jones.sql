@@ -1,1 +1,0 @@
-ALTER TABLE `users` ADD `password` text DEFAULT 'temporary_password' NOT NULL;

@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1779599943386,
-      "tag": "0000_happy_gladiator",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1780373889327,
-      "tag": "0001_complex_romulus",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1780529457966,
-      "tag": "0002_workable_dust",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1780544326330,
-      "tag": "0003_lyrical_rick_jones",
+      "when": 1782262695861,
+      "tag": "0000_noisy_hulk",
       "breakpoints": true
     }
   ]
