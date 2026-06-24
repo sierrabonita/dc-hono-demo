@@ -8,6 +8,13 @@
       "when": 1782262695861,
       "tag": "0000_noisy_hulk",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1782269247010,
+      "tag": "0001_tan_mandrill",
+      "breakpoints": true
     }
   ]
 }
