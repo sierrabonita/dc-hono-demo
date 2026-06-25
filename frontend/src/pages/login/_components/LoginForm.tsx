@@ -60,7 +60,11 @@ const LoginForm = () => {
         type: 'success',
       });
 
-      navigate('/home');
+      if (result.data.login.user.role === 1) {
+        navigate('/admin');
+      } else {
+        navigate('/home');
+      }
     }
   };
 
