@@ -2,39 +2,39 @@
 import { Button, CloseButton, Dialog, Portal } from '@/libs/chakra';
 
 type Props = {
-  textBody: string;
-  textTitle: string;
+  body: string;
+  title: string;
   isOpen: boolean;
-  onOpenChange: (state: boolean) => void;
   onClickConfirm: () => void;
-  buttonTextConfirm?: string;
+  onOpenChange: (state: boolean) => void;
   buttonTextCancel?: string;
+  buttonTextConfirm?: string;
   isLoading?: boolean;
 };
 
 const ConfirmDialog = (props: Props) => {
   const {
-    textBody,
-    textTitle,
+    body,
+    title,
     isOpen,
-    onOpenChange,
     onClickConfirm,
-    buttonTextConfirm = 'OK',
+    onOpenChange,
     buttonTextCancel = 'キャンセル',
+    buttonTextConfirm = 'OK',
     isLoading,
   } = props;
 
   return (
-    <Dialog.Root size={'md'} open={isOpen} onOpenChange={(e) => onOpenChange(e.open)}>
+    <Dialog.Root size="md" open={isOpen} onOpenChange={(e) => onOpenChange(e.open)}>
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
           <Dialog.Content>
             <Dialog.Header>
-              <Dialog.Title>{textTitle}</Dialog.Title>
+              <Dialog.Title>{title}</Dialog.Title>
             </Dialog.Header>
             <Dialog.Body>
-              <p>{textBody}</p>
+              <p>{body}</p>
             </Dialog.Body>
             <Dialog.Footer>
               <Dialog.ActionTrigger asChild>

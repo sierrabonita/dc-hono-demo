@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from 'urql';
-import ConfirmDialog from '@/components/ConfirmDialog';
+import ConfirmDialog from '@/components/dialogs/ConfirmDialog';
 import { graphql } from '@/gql/index';
 import { Badge, Button, Flex, Heading, Stack, Text } from '@/libs/chakra';
 
@@ -94,12 +94,12 @@ export const Header = () => {
         </Flex>
       </Flex>
       <ConfirmDialog
-        textBody={'ログアウトします。よろしいですか？'}
-        textTitle={'ログアウト確認'}
+        body={'ログアウトします。よろしいですか？'}
+        title={'ログアウト確認'}
         isOpen={isOpenDialog}
         isLoading={isLoggingOut}
-        onOpenChange={setIsOpenDialog}
         onClickConfirm={handleClickAccept}
+        onOpenChange={setIsOpenDialog}
       />
     </>
   );
