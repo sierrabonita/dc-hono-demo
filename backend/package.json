@@ -8,7 +8,7 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate:local": "wrangler d1 migrations apply my-d1-db --local",
     "db:migrate:prod": "wrangler d1 migrations apply my-d1-db --remote",
-    "db:seed:local": "wrangler d1 execute my-d1-db --local --file=src/db/seed.sql"
+    "db:seed": "npx tsx src/db/seeds/index.ts"
   },
   "dependencies": {
     "@dc-hono-demo/shared": "*",
