@@ -6,7 +6,7 @@ import { useMutation } from 'urql';
 import { Field } from '@/components/Field';
 import { toaster } from '@/components/toaster-instance';
 import { graphql } from '@/gql/index';
-import { Box, Button, Container, Heading, Input, Stack } from '@/libs/chakra';
+import { Box, Button, Heading, Input, Stack } from '@/libs/chakra';
 
 const LOGIN_MUTATION = graphql(`
   mutation Login($input: LoginInput!) {
@@ -65,43 +65,37 @@ const LoginForm = () => {
   };
 
   return (
-    <Container maxW="md" py={12}>
-      <Box p={8} borderWidth={1} borderRadius="lg" boxShadow="md" bg="white">
-        <Stack gap={6}>
-          <Heading size="xl" textAlign="center">
-            ログイン
-          </Heading>
+    <Box p={8} borderWidth={1} borderRadius="lg" boxShadow="md" bg="white">
+      <Stack gap={6}>
+        <Heading size="xl" textAlign="center">
+          ログイン
+        </Heading>
 
-          <Box as="form" onSubmit={handleSubmit(onSubmit)}>
-            <Stack gap={4}>
-              <Field
-                label="メールアドレス"
-                invalid={!!errors.email}
-                errorText={errors.email?.message}
-              >
-                <Input
-                  type="email"
-                  placeholder="example@test.com"
-                  {...register('email')} // react-hook-formに登録
-                />
-              </Field>
+        <Box as="form" onSubmit={handleSubmit(onSubmit)}>
+          <Stack gap={4}>
+            <Field
+              label="メールアドレス"
+              invalid={!!errors.email}
+              errorText={errors.email?.message}
+            >
+              <Input type="email" placeholder="example@test.com" {...register('email')} />
+            </Field>
 
-              <Field
-                label="パスワード"
-                invalid={!!errors.password}
-                errorText={errors.password?.message}
-              >
-                <Input type="password" placeholder="パスワードを入力" {...register('password')} />
-              </Field>
+            <Field
+              label="パスワード"
+              invalid={!!errors.password}
+              errorText={errors.password?.message}
+            >
+              <Input type="password" placeholder="パスワードを入力" {...register('password')} />
+            </Field>
 
-              <Button type="submit" colorScheme="blue" width="full" mt={4} loading={isSubmitting}>
-                ログインする
-              </Button>
-            </Stack>
-          </Box>
-        </Stack>
-      </Box>
-    </Container>
+            <Button type="submit" colorScheme="blue" width="full" mt={4} loading={isSubmitting}>
+              ログインする
+            </Button>
+          </Stack>
+        </Box>
+      </Stack>
+    </Box>
   );
 };
 
