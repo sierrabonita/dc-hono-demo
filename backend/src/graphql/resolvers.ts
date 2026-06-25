@@ -10,8 +10,8 @@ import { eq, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
 import { GraphQLError } from 'graphql';
 import type { Context } from 'hono';
-import { deleteCookie, setCookie } from 'hono/cookie';
-import { sign } from 'hono/jwt';
+import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
+import { sign, verify } from 'hono/jwt';
 import { usersTable } from '@/db/schema/users';
 import type { Bindings } from '@/types';
 import { hashPassword, verifyPassword } from '@/utils/crypto';
@@ -34,6 +34,25 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
       }
 
       return user;
+    },
+    me: async () => {
+      const token = getCookie(c, 'auth_token');
+      if (!token) return null;
+
+      try {
+        const payload = await verify(token, c.env.JWT_SECRET, 'HS256');
+        if (!payload.id) return null;
+
+        const user = await db
+          .select()
+          .from(usersTable)
+          .where(eq(usersTable.id, payload.id as number))
+          .get();
+        return user || null;
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
     },
     createUser: async ({ input }: { input: CreateUserDto }) => {
       const result = createUserSchema.safeParse(input);
@@ -134,7 +153,7 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
         exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24, // 有効期限（現在の時刻 + 24時間）
       };
 
-      const token = await sign(payload, c.env.JWT_SECRET);
+      const token = await sign(payload, c.env.JWT_SECRET, 'HS256');
 
       setCookie(c, 'auth_token', token, {
         httpOnly: true,

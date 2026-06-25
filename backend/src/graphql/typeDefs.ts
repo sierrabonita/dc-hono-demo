@@ -39,6 +39,7 @@ export const typeDefs = buildSchema(`
   type Query {
     users: [User!]!
     user(id: Int!): User
+    me: User
   }
 
   type Mutation {

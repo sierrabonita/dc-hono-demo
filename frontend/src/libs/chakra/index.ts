@@ -1,4 +1,5 @@
 export {
+  Badge,
   Box,
   Button,
   Center,
@@ -12,6 +13,7 @@ export {
   Portal,
   Spinner,
   Stack,
+  Text,
   Toast,
   Toaster,
 } from '@chakra-ui/react';
