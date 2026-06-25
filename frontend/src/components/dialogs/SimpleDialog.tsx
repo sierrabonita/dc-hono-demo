@@ -3,15 +3,15 @@ import { CloseButton, Dialog, Portal } from '@/libs/chakra';
 
 type Props = {
   isOpen: boolean;
-  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'cover' | 'full';
   onOpenChange: (state: boolean) => void;
   children: React.ReactNode;
   title?: string;
   footer?: React.ReactNode;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'cover' | 'full';
 };
 
 const SimpleDialog = (props: Props) => {
-  const { isOpen, size = 'md', onOpenChange, children, title, footer } = props;
+  const { isOpen, onOpenChange, children, title, footer, size = 'md' } = props;
 
   return (
     <Dialog.Root size={size} open={isOpen} onOpenChange={(e) => onOpenChange(e.open)}>
