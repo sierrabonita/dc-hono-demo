@@ -16,5 +16,9 @@ export default defineConfig({
     watch: {
       usePolling: true, // Docker環境でのファイル変更検知を確実にする
     },
+    hmr: {
+      host: 'localhost',
+      port: 5173,
+    },
   },
 });
