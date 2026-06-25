@@ -43,9 +43,6 @@ export const Header = () => {
 
   const isAdmin = data?.me?.role === 1;
 
-  console.log('data: ', data);
-  console.log('isAdmin: ', isAdmin);
-
   return (
     <>
       <Flex
