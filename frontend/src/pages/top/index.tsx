@@ -8,14 +8,12 @@ const Top = () => {
 
   return (
     <>
-      <Box position="absolute" top="4" right="4">
-        <Button onClick={() => setIsDialogOpen(true)}>Open Modal</Button>
-      </Box>
-      <Center w="full">
+      <Flex w="full" p="1rem" alignItems="center" justifyContent="space-between">
         <Heading fontSize="4xl" fontWeight="bold">
           Cinema Review
         </Heading>
-      </Center>
+        <Button onClick={() => setIsDialogOpen(true)}>ログイン</Button>
+      </Flex>
       <SimpleDialog isOpen={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <LoginForm />
       </SimpleDialog>
