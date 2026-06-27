@@ -15,6 +15,27 @@ export const typeDefs = buildSchema(`
     user: User!
   }
 
+  type Movie {
+    id: Int!
+    title: String!
+    originalTitle: String!
+    releaseDate: String!
+    createdAt: String!
+    updatedAt: String!
+  }
+
+  type Review {
+    id: Int!
+    userId: Int!
+    movieId: Int!
+    content: String!
+    isSpoiler: Int!
+    createdAt: String!
+    updatedAt: String!
+    user: User!
+    movie: Movie!
+  }
+
   input CreateUserInput {
     name: String!
     email: String!
@@ -35,11 +56,11 @@ export const typeDefs = buildSchema(`
     password: String!
   }
 
-
   type Query {
     users: [User!]!
     user(id: Int!): User
     me: User
+    reviews: [Review!]!
   }
 
   type Mutation {

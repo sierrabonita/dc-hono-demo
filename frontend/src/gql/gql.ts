@@ -16,14 +16,16 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
 type Documents = {
     "\n  query Me {\n    me {\n      id\n      name\n      role\n    }\n  }\n": typeof types.MeDocument,
     "\n  mutation Logout {\n    logout\n  }\n": typeof types.LogoutDocument,
-    "\n  query Users {\n    users {\n      id\n      name\n      email\n      role\n    }\n  }\n": typeof types.UsersDocument,
     "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n": typeof types.LoginDocument,
+    "\n  query Users {\n    users {\n      id\n      name\n      email\n      role\n    }\n  }\n": typeof types.UsersDocument,
+    "\n  query Reviews{\n    reviews {\n      id\n      content\n      isSpoiler\n      createdAt\n      user {\n        name\n      }\n      movie{\n        title\n      }\n    }\n  }\n": typeof types.ReviewsDocument,
 };
 const documents: Documents = {
     "\n  query Me {\n    me {\n      id\n      name\n      role\n    }\n  }\n": types.MeDocument,
     "\n  mutation Logout {\n    logout\n  }\n": types.LogoutDocument,
-    "\n  query Users {\n    users {\n      id\n      name\n      email\n      role\n    }\n  }\n": types.UsersDocument,
     "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n": types.LoginDocument,
+    "\n  query Users {\n    users {\n      id\n      name\n      email\n      role\n    }\n  }\n": types.UsersDocument,
+    "\n  query Reviews{\n    reviews {\n      id\n      content\n      isSpoiler\n      createdAt\n      user {\n        name\n      }\n      movie{\n        title\n      }\n    }\n  }\n": types.ReviewsDocument,
 };
 
 /**
@@ -51,11 +53,15 @@ export function graphql(source: "\n  mutation Logout {\n    logout\n  }\n"): (ty
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "\n  query Users {\n    users {\n      id\n      name\n      email\n      role\n    }\n  }\n"): (typeof documents)["\n  query Users {\n    users {\n      id\n      name\n      email\n      role\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query Reviews{\n    reviews {\n      id\n      content\n      isSpoiler\n      createdAt\n      user {\n        name\n      }\n      movie{\n        title\n      }\n    }\n  }\n"): (typeof documents)["\n  query Reviews{\n    reviews {\n      id\n      content\n      isSpoiler\n      createdAt\n      user {\n        name\n      }\n      movie{\n        title\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

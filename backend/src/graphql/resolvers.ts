@@ -12,6 +12,8 @@ import { GraphQLError } from 'graphql';
 import type { Context } from 'hono';
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
 import { sign, verify } from 'hono/jwt';
+import { moviesTable } from '@/db/schema/movies';
+import { reviewsTable } from '@/db/schema/reviews';
 import { usersTable } from '@/db/schema/users';
 import type { Bindings } from '@/types';
 import { hashPassword, verifyPassword } from '@/utils/crypto';
@@ -21,6 +23,24 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
   const db = drizzle(c.env.DB);
 
   return {
+    reviews: async () => {
+      const rows = await db
+        .select({
+          review: reviewsTable,
+          user: usersTable,
+          movie: moviesTable,
+        })
+        .from(reviewsTable)
+        .innerJoin(usersTable, eq(reviewsTable.userId, usersTable.id))
+        .innerJoin(moviesTable, eq(reviewsTable.movieId, moviesTable.id))
+        .all();
+
+      return rows.map((row) => ({
+        ...row.review,
+        user: row.user,
+        movie: row.movie,
+      }));
+    },
     users: async () => {
       return await db.select().from(usersTable).all();
     },
