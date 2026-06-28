@@ -3,7 +3,8 @@ import { useQuery } from 'urql';
 import SimpleDialog from '@/components/dialogs/SimpleDialog';
 import LoginForm from '@/components/forms/LoginForm';
 import { graphql } from '@/gql/index';
-import { Button, Center, Flex, Heading, Spinner } from '@/libs/chakra';
+import { Button, Center, Container, Flex, Heading, Spinner } from '@/libs/chakra';
+import { ReviewList } from '@/pages/top/_components/ReviewList';
 
 const REVIEWS_QUERY = graphql(`
   query Reviews{
@@ -34,8 +35,6 @@ const Top = () => {
     );
   }
 
-  console.log('data:', data);
-
   return (
     <>
       <Flex w="full" p="1rem" alignItems="center" justifyContent="space-between">
@@ -44,6 +43,9 @@ const Top = () => {
         </Heading>
         <Button onClick={() => setIsDialogOpen(true)}>ログイン</Button>
       </Flex>
+      <Container maxW="lg">
+        <ReviewList data={data} />
+      </Container>
       <SimpleDialog isOpen={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <LoginForm />
       </SimpleDialog>

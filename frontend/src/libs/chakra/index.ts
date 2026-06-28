@@ -8,6 +8,7 @@ export {
   Dialog,
   Flex,
   Heading,
+  HStack,
   Input,
   Link,
   List,
