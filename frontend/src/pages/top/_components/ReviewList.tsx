@@ -7,15 +7,14 @@ type ReviewListProps = {
 };
 
 type ReviewListItemProps = {
-  key: number;
   review: ReviewsQuery['reviews'][0];
 };
 
-const ReviewListItem = ({ key, review }: ReviewListItemProps) => {
+const ReviewListItem = ({ review }: ReviewListItemProps) => {
   const [isContextSpoilerOpen, setIsContextSpoilerOpen] = useState(false);
 
   return (
-    <List.Item key={key} pb="1rem" listStyle="none">
+    <List.Item pb="1rem" listStyle="none">
       <HStack justifyContent="space-between">
         <Text fontWeight="bold" fontSize="md">
           {review.movie.title}
