@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { ReviewsQuery } from '@/gql/graphql';
-import { Flex, HStack, List, Text } from '@/libs/chakra';
+import { Flex, Heading, HStack, List, Stack, Text } from '@/libs/chakra';
 
 type ReviewListProps = {
   data?: ReviewsQuery;
@@ -8,6 +8,14 @@ type ReviewListProps = {
 
 type ReviewListItemProps = {
   review: ReviewsQuery['reviews'][0];
+};
+
+const ReviewListTitle = () => {
+  return (
+    <Heading fontSize="2xl" fontWeight="bold" textAlign="center">
+      Latest Reviews
+    </Heading>
+  );
 };
 
 const ReviewListItem = ({ review }: ReviewListItemProps) => {
@@ -38,10 +46,13 @@ const ReviewListItem = ({ review }: ReviewListItemProps) => {
 
 export const ReviewList = ({ data }: ReviewListProps) => {
   return (
-    <List.Root>
-      {data?.reviews.map((review) => (
-        <ReviewListItem key={review.id} review={review} />
-      ))}
-    </List.Root>
+    <Stack gap="2">
+      <ReviewListTitle />
+      <List.Root>
+        {data?.reviews.map((review) => (
+          <ReviewListItem key={review.id} review={review} />
+        ))}
+      </List.Root>
+    </Stack>
   );
 };
