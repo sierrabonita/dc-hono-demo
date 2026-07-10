@@ -68,7 +68,26 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
           .from(usersTable)
           .where(eq(usersTable.id, payload.id as number))
           .get();
-        return user || null;
+
+        if (!user) return null;
+
+        return {
+          ...user,
+          reviews: async () => {
+            const rows = await db
+              .select({
+                review: reviewsTable,
+                movie: moviesTable,
+              })
+              .from(reviewsTable)
+              .innerJoin(moviesTable, eq(reviewsTable.movieId, moviesTable.id))
+              .where(eq(reviewsTable.userId, user.id))
+              .all();
+            return rows.map((row) => {
+              return { ...row.review, user, movie: row.movie };
+            });
+          },
+        };
       } catch (e) {
         console.error(e);
         return null;

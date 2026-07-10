@@ -8,6 +8,7 @@ export const typeDefs = buildSchema(`
     role: Int!
     createdAt: String!
     updatedAt: String!
+    reviews: [Review!]!
   }
 
   type AuthPayload {

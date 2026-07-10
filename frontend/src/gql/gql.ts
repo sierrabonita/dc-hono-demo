@@ -18,6 +18,7 @@ type Documents = {
     "\n  mutation Logout {\n    logout\n  }\n": typeof types.LogoutDocument,
     "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n": typeof types.LoginDocument,
     "\n  query Users {\n    users {\n      id\n      name\n      email\n      role\n    }\n  }\n": typeof types.UsersDocument,
+    "\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n": typeof types.GetMyProfileWithReviewsDocument,
     "\n  query Reviews{\n    reviews {\n      id\n      content\n      isSpoiler\n      createdAt\n      user {\n        name\n      }\n      movie{\n        title\n      }\n    }\n  }\n": typeof types.ReviewsDocument,
 };
 const documents: Documents = {
@@ -25,6 +26,7 @@ const documents: Documents = {
     "\n  mutation Logout {\n    logout\n  }\n": types.LogoutDocument,
     "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n": types.LoginDocument,
     "\n  query Users {\n    users {\n      id\n      name\n      email\n      role\n    }\n  }\n": types.UsersDocument,
+    "\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n": types.GetMyProfileWithReviewsDocument,
     "\n  query Reviews{\n    reviews {\n      id\n      content\n      isSpoiler\n      createdAt\n      user {\n        name\n      }\n      movie{\n        title\n      }\n    }\n  }\n": types.ReviewsDocument,
 };
 
@@ -58,6 +60,10 @@ export function graphql(source: "\n  mutation Login($input: LoginInput!) {\n    
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query Users {\n    users {\n      id\n      name\n      email\n      role\n    }\n  }\n"): (typeof documents)["\n  query Users {\n    users {\n      id\n      name\n      email\n      role\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
