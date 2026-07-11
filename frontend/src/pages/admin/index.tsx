@@ -26,9 +26,9 @@ const UserTable = ({ users }: { users: FragmentType<typeof USER_TABLE_FIELDS>[] 
   const getRoleLabel = (role: number) => {
     switch (role) {
       case 0:
-        return '一般ユーザー';
+        return '一般';
       case 1:
-        return '管理ユーザー';
+        return '管理';
       default:
         return '不明';
     }
@@ -40,7 +40,7 @@ const UserTable = ({ users }: { users: FragmentType<typeof USER_TABLE_FIELDS>[] 
         <Table.Row>
           <Table.ColumnHeader>名前</Table.ColumnHeader>
           <Table.ColumnHeader>メールアドレス</Table.ColumnHeader>
-          <Table.ColumnHeader>ロール</Table.ColumnHeader>
+          <Table.ColumnHeader>権限</Table.ColumnHeader>
           <Table.ColumnHeader>登録日時</Table.ColumnHeader>
           <Table.ColumnHeader></Table.ColumnHeader>
         </Table.Row>
