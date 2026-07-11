@@ -21,7 +21,7 @@ const LOGOUT_MUTATION = graphql(`
   }
 `);
 
-export const Header = () => {
+export const AuthHeader = () => {
   const navigate = useNavigate();
   const [{ data, fetching }] = useQuery({ query: ME_QUERY });
   const [, executeMutation] = useMutation(LOGOUT_MUTATION);

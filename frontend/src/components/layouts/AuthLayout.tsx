@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom';
-import { Header } from '@/components/Header';
+import { AuthHeader } from '@/components/AuthHeader';
 import { Box, Flex } from '@/libs/chakra';
 
 export const AuthLayout = () => {
   return (
     <Flex direction="column" minHeight="100vh" bg="gray.50">
-      <Header />
+      <AuthHeader />
       <Box flex="1" p={8}>
         <Outlet />
       </Box>
