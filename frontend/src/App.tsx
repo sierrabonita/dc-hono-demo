@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthLayout } from '@/components/layouts/AuthLayout';
 import { Toaster } from '@/components/Toaster';
-import Admin from '@/pages/admin';
+import { Admin } from '@/pages/admin';
 import Home from '@/pages/home';
 import Top from '@/pages/top';
 

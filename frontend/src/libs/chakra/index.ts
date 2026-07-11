@@ -15,6 +15,7 @@ export {
   Portal,
   Spinner,
   Stack,
+  Table,
   Text,
   Toast,
   Toaster,
