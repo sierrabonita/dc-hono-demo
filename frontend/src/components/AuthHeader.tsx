@@ -3,7 +3,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from 'urql';
 import ConfirmDialog from '@/components/dialogs/ConfirmDialog';
 import { graphql } from '@/gql/index';
-import { Badge, Button, Flex, Heading, Stack, Text } from '@/libs/chakra';
+import { Badge, Button, Flex, Heading, Text } from '@/libs/chakra';
 
 const ME_QUERY = graphql(`
   query Me {
@@ -79,14 +79,9 @@ export const AuthHeader = () => {
 
         <Flex alignItems="center" gap={6}>
           {!fetching && data?.me && (
-            <Stack gap={0}>
-              <Text fontSize="xs" color="gray.500">
-                ログインユーザー
-              </Text>
-              <Text fontSize="sm" color="gray.800">
-                {data.me.name}さん
-              </Text>
-            </Stack>
+            <Text fontSize="sm" color="gray.800">
+              {data.me.name}さん
+            </Text>
           )}
           <Button onClick={() => setIsOpenDialog(true)} variant="outline">
             ログアウト
