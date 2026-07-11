@@ -55,8 +55,10 @@ const UserTable = ({ users }: { users: FragmentType<typeof USER_TABLE_FIELDS>[] 
               <Table.Cell>{user.createdAt}</Table.Cell>
               <Table.Cell>
                 <HStack>
-                  <Link>削除</Link>
-                  <Link>編集</Link>
+                  {/* TODO: 削除モーダルの実装 */}
+                  <Link onClick={() => {}}>削除</Link>
+                  {/* TODO: 編集モーダルの実装 */}
+                  <Link onClick={() => {}}>編集</Link>
                 </HStack>
               </Table.Cell>
             </Table.Row>
