@@ -22,15 +22,20 @@ export const createUserSchema = z.object({
 
 export type CreateUserDto = z.infer<typeof createUserSchema>;
 
-export const updateUserSchema = z.object({
+export const updateMeSchema = z.object({
+  name: z.string().min(1, '名前を入力してください').optional(),
+  email: z.string().email('無効なメールアドレス形式です').optional(),
+  password: z.string().min(6, 'パスワードは6文字以上で入力してください').optional(),
+});
+
+export type UpdateMeDto = z.infer<typeof updateMeSchema>;
+
+export const updateUserRoleSchema = z.object({
   id: z.number(),
-  name: z.string().min(1, '名前を入力してください'),
-  email: z.string().email('無効なメールアドレス形式です'),
-  password: z.string().min(6, 'パスワードは6文字以上で入力してください'),
   role: z.union([z.literal(USER_ROLES.NORMAL), z.literal(USER_ROLES.ADMIN)]),
 });
 
-export type UpdateUserDto = z.infer<typeof updateUserSchema>;
+export type UpdateUserRoleDto = z.infer<typeof updateUserRoleSchema>;
 
 export const deleteUserSchema = z.object({
   id: z.number(),

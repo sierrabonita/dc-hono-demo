@@ -3,8 +3,10 @@ import {
   type CreateUserDto,
   createUserSchema,
   type DeleteUserDto,
-  type UpdateUserDto,
-  updateUserSchema,
+  type UpdateMeDto,
+  type UpdateUserRoleDto,
+  updateMeSchema,
+  updateUserRoleSchema,
 } from '@dc-hono-demo/shared/schemas/user';
 import { eq, sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/d1';
@@ -118,8 +120,66 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
         .get();
       return newUser;
     },
-    updateUser: async ({ input }: { input: UpdateUserDto }) => {
-      const result = updateUserSchema.safeParse(input);
+    updateMe: async ({ input }: { input: UpdateMeDto }) => {
+      const token = getCookie(c, 'auth_token');
+      if (!token) {
+        throw new GraphQLError('ログインしていません', {
+          extensions: { code: 'UNAUTHORIZED' },
+        });
+      }
+
+      let userId: number;
+      try {
+        const payload = await verify(token, c.env.JWT_SECRET, 'HS256');
+        if (!payload.id) {
+          throw new GraphQLError('認証が無効です', {
+            extensions: { code: 'UNAUTHORIZED' },
+          });
+        }
+        userId = payload.id as number;
+      } catch (_e) {
+        throw new GraphQLError('認証が無効です', {
+          extensions: { code: 'UNAUTHORIZED' },
+        });
+      }
+
+      const result = updateMeSchema.safeParse(input);
+
+      if (!result.success) {
+        const errorMessage = result.error.issues.map((e) => e.message).join(', ');
+        throw new GraphQLError(`バリデーションエラー: ${errorMessage}`);
+      }
+
+      const validData = result.data;
+
+      const existingUser = await db
+        .select()
+        .from(usersTable)
+        .where(eq(usersTable.id, userId))
+        .get();
+      if (!existingUser) throw new GraphQLError('更新対象のユーザーが見つかりません');
+
+      let finalPassword = existingUser.password;
+      if (validData.password) {
+        finalPassword = await hashPassword(validData.password);
+      }
+
+      const updatedUser = await db
+        .update(usersTable)
+        .set({
+          ...(validData.name && { name: validData.name }),
+          ...(validData.email && { email: validData.email }),
+          password: finalPassword,
+          updatedAt: sql`CURRENT_TIMESTAMP`,
+        })
+        .where(eq(usersTable.id, userId))
+        .returning()
+        .get();
+
+      return updatedUser;
+    },
+    updateUserRole: async ({ input }: { input: UpdateUserRoleDto }) => {
+      const result = updateUserRoleSchema.safeParse(input);
 
       if (!result.success) {
         const errorMessage = result.error.issues.map((e) => e.message).join(', ');
@@ -135,17 +195,10 @@ export const getResolvers = (c: Context<{ Bindings: Bindings }>) => {
         .get();
       if (!existingUser) throw new GraphQLError('更新対象のユーザーが見つかりません');
 
-      let finalPassword = existingUser.password;
-      if (validData.password) {
-        finalPassword = await hashPassword(validData.password);
-      }
       const updatedUser = await db
         .update(usersTable)
         .set({
-          ...(validData.name && { name: validData.name }),
-          ...(validData.email && { email: validData.email }),
-          password: finalPassword,
-          ...(validData.role && { role: validData.role }),
+          role: validData.role,
           updatedAt: sql`CURRENT_TIMESTAMP`,
         })
         .where(eq(usersTable.id, validData.id))

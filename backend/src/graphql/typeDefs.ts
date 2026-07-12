@@ -44,11 +44,14 @@ export const typeDefs = buildSchema(`
     role: Int!
   }
 
-  input UpdateUserInput {
-    id: Int!
+  input UpdateMeInput {
     name: String
     email: String
     password: String
+  }
+
+  input UpdateUserRoleInput {
+    id: Int!
     role: Int
   }
 
@@ -66,7 +69,8 @@ export const typeDefs = buildSchema(`
 
   type Mutation {
     createUser(input: CreateUserInput!): User!
-    updateUser(input: UpdateUserInput!): User!
+    updateMe(input: UpdateMeInput!): User!
+    updateUserRole(input: UpdateUserRoleInput!): User!
     deleteUser(id: Int!): User!
     login(input: LoginInput!): AuthPayload!
     logout: Boolean!
