@@ -12,6 +12,7 @@ export {
   Input,
   Link,
   List,
+  NativeSelect,
   Portal,
   Spinner,
   Stack,
