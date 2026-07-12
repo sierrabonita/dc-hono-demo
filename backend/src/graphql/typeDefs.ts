@@ -1,11 +1,13 @@
 import { buildSchema } from 'graphql';
 
 export const typeDefs = buildSchema(`
+  scalar UserRole
+
   type User {
     id: Int!
     name: String!
     email: String!
-    role: Int!
+    role: UserRole!
     createdAt: String!
     updatedAt: String!
     reviews: [Review!]!
@@ -41,7 +43,7 @@ export const typeDefs = buildSchema(`
     name: String!
     email: String!
     password: String!
-    role: Int!
+    role: UserRole!
   }
 
   input UpdateMeInput {
@@ -52,7 +54,7 @@ export const typeDefs = buildSchema(`
 
   input UpdateUserRoleInput {
     id: Int!
-    role: Int
+    role: UserRole
   }
 
   input LoginInput {

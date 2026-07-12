@@ -10,6 +10,9 @@ const config: CodegenConfig = {
       preset: 'client',
       config: {
         useTypeImports: true,
+        scalars: {
+          UserRole: '0 | 1',
+        },
       },
     },
   },
