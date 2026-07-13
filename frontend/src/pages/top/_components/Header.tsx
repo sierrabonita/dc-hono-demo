@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { BiSolidCameraMovie } from 'react-icons/bi';
+import { TextButton } from '@/components/buttons/TextButton';
 import SimpleDialog from '@/components/dialogs/SimpleDialog';
 import LoginForm from '@/components/forms/LoginForm';
-import { Heading, HStack, Link } from '@/libs/chakra';
+import { Heading, HStack } from '@/libs/chakra';
 
 export const Header = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -10,7 +11,7 @@ export const Header = () => {
   return (
     <>
       <HStack px="4" py="2" justifyContent="flex-end" alignItems="center">
-        <Link onClick={() => setIsDialogOpen(true)}>ログイン</Link>
+        <TextButton text="ログイン" onClick={() => setIsDialogOpen(true)} />
       </HStack>
       <HStack px="4" py="2" backgroundColor="black">
         <BiSolidCameraMovie color="yellow" size="48" />
