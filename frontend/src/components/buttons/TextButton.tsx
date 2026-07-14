@@ -7,7 +7,16 @@ export type Props = {
 
 export const TextButton = ({ text, onClick }: Props) => {
   return (
-    <Button variant="plain" h="auto" p="0" minW="unset" minH="unset" onClick={onClick}>
+    <Button
+      variant="plain"
+      h="auto"
+      p="0"
+      minW="unset"
+      minH="unset"
+      fontSize="md"
+      _hover={{ textDecoration: 'underline' }}
+      onClick={onClick}
+    >
       {text}
     </Button>
   );
