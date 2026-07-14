@@ -28,6 +28,12 @@ services:
     depends_on:
       - backend
     command: sh -c "yarn install && yarn dev --host"
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: mailpit
+    ports:
+      - "1025:1025" # SMTP ポート
+      - "8025:8025" # Web UI / HTTP API ポート
 
 volumes:
   wrangler-local-state:

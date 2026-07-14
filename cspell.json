@@ -19,7 +19,18 @@
   ],
   "dictionaryDefinitions": [],
   "dictionaries": [],
-  "words": ["autoincrement", "chakra", "codegen", "hono", "minifiable", "urql", "vite", "yarnrc"],
+  "words": [
+    "autoincrement",
+    "axllent",
+    "chakra",
+    "codegen",
+    "hono",
+    "mailpit",
+    "minifiable",
+    "urql",
+    "vite",
+    "yarnrc"
+  ],
   "ignoreWords": [],
   "import": []
 }
