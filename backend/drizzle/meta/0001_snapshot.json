@@ -117,10 +117,7 @@
       "indexes": {
         "user_movie_unique": {
           "name": "user_movie_unique",
-          "columns": [
-            "user_id",
-            "movie_id"
-          ],
+          "columns": ["user_id", "movie_id"],
           "isUnique": true
         }
       },
@@ -129,12 +126,8 @@
           "name": "reviews_user_id_users_id_fk",
           "tableFrom": "reviews",
           "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -142,12 +135,8 @@
           "name": "reviews_movie_id_movies_id_fk",
           "tableFrom": "reviews",
           "tableTo": "movies",
-          "columnsFrom": [
-            "movie_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["movie_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -223,16 +212,12 @@
       "indexes": {
         "users_slug_unique": {
           "name": "users_slug_unique",
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "isUnique": true
         },
         "users_email_unique": {
           "name": "users_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         }
       },
