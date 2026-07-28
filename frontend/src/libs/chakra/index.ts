@@ -6,6 +6,7 @@ export {
   CloseButton,
   Container,
   Dialog,
+  Field,
   Flex,
   Heading,
   HStack,

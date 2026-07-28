@@ -11,3 +11,5 @@ migrations_dir = "drizzle" # Drizzleが書き出すマイグレーションフ�
 
 [vars]
 ENVIRONMENT = "development"
+FRONTEND_URL = "http://localhost:5173"
+MAILPIT_SEND_URL = "http://mailpit:8025/api/v1/send"

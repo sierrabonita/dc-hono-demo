@@ -76,5 +76,6 @@ export const typeDefs = buildSchema(`
     deleteUser(id: Int!): User!
     login(input: LoginInput!): AuthPayload!
     logout: Boolean!
+    sendVerificationEmail(input: CreateUserInput!): Boolean!
   }
 `);
