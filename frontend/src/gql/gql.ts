@@ -1,6 +1,7 @@
 /* eslint-disable */
-import * as types from './graphql';
+
 import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import * as types from './graphql';
 
 /**
  * Map of all GraphQL operations in the project.
@@ -14,24 +15,32 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  query Me {\n    me {\n      id\n      name\n      role\n    }\n  }\n": typeof types.MeDocument,
-    "\n  mutation Logout {\n    logout\n  }\n": typeof types.LogoutDocument,
-    "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n": typeof types.LoginDocument,
-    "\n  mutation UpdateUserRole($input: UpdateUserRoleInput!) {\n    updateUserRole(input: $input) {\n      id\n      role\n    }\n  }\n": typeof types.UpdateUserRoleDocument,
-    "\n  fragment UserTableFields on User {\n    id\n    name\n    email\n    role\n    createdAt\n  }\n": typeof types.UserTableFieldsFragmentDoc,
-    "\n  query Users {\n    users {\n      ...UserTableFields\n    }\n  }\n": typeof types.UsersDocument,
-    "\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n": typeof types.GetMyProfileWithReviewsDocument,
-    "\n  query Reviews{\n    reviews {\n      id\n      content\n      isSpoiler\n      createdAt\n      user {\n        name\n      }\n      movie{\n        title\n      }\n    }\n  }\n": typeof types.ReviewsDocument,
+  '\n  query Me {\n    me {\n      id\n      name\n      role\n    }\n  }\n': typeof types.MeDocument;
+  '\n  mutation Logout {\n    logout\n  }\n': typeof types.LogoutDocument;
+  '\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n': typeof types.LoginDocument;
+  '\n  mutation SendVerificationEmail($input: CreateUserInput!) {\n    sendVerificationEmail(input: $input)\n  }\n': typeof types.SendVerificationEmailDocument;
+  '\n  mutation UpdateUserRole($input: UpdateUserRoleInput!) {\n    updateUserRole(input: $input) {\n      id\n      role\n    }\n  }\n': typeof types.UpdateUserRoleDocument;
+  '\n  fragment UserTableFields on User {\n    id\n    name\n    email\n    role\n    createdAt\n  }\n': typeof types.UserTableFieldsFragmentDoc;
+  '\n  query Users {\n    users {\n      ...UserTableFields\n    }\n  }\n': typeof types.UsersDocument;
+  '\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n': typeof types.GetMyProfileWithReviewsDocument;
+  '\n  query Reviews{\n    reviews {\n      id\n      content\n      isSpoiler\n      createdAt\n      user {\n        name\n      }\n      movie{\n        title\n      }\n    }\n  }\n': typeof types.ReviewsDocument;
 };
 const documents: Documents = {
-    "\n  query Me {\n    me {\n      id\n      name\n      role\n    }\n  }\n": types.MeDocument,
-    "\n  mutation Logout {\n    logout\n  }\n": types.LogoutDocument,
-    "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n": types.LoginDocument,
-    "\n  mutation UpdateUserRole($input: UpdateUserRoleInput!) {\n    updateUserRole(input: $input) {\n      id\n      role\n    }\n  }\n": types.UpdateUserRoleDocument,
-    "\n  fragment UserTableFields on User {\n    id\n    name\n    email\n    role\n    createdAt\n  }\n": types.UserTableFieldsFragmentDoc,
-    "\n  query Users {\n    users {\n      ...UserTableFields\n    }\n  }\n": types.UsersDocument,
-    "\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n": types.GetMyProfileWithReviewsDocument,
-    "\n  query Reviews{\n    reviews {\n      id\n      content\n      isSpoiler\n      createdAt\n      user {\n        name\n      }\n      movie{\n        title\n      }\n    }\n  }\n": types.ReviewsDocument,
+  '\n  query Me {\n    me {\n      id\n      name\n      role\n    }\n  }\n': types.MeDocument,
+  '\n  mutation Logout {\n    logout\n  }\n': types.LogoutDocument,
+  '\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n':
+    types.LoginDocument,
+  '\n  mutation SendVerificationEmail($input: CreateUserInput!) {\n    sendVerificationEmail(input: $input)\n  }\n':
+    types.SendVerificationEmailDocument,
+  '\n  mutation UpdateUserRole($input: UpdateUserRoleInput!) {\n    updateUserRole(input: $input) {\n      id\n      role\n    }\n  }\n':
+    types.UpdateUserRoleDocument,
+  '\n  fragment UserTableFields on User {\n    id\n    name\n    email\n    role\n    createdAt\n  }\n':
+    types.UserTableFieldsFragmentDoc,
+  '\n  query Users {\n    users {\n      ...UserTableFields\n    }\n  }\n': types.UsersDocument,
+  '\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n':
+    types.GetMyProfileWithReviewsDocument,
+  '\n  query Reviews{\n    reviews {\n      id\n      content\n      isSpoiler\n      createdAt\n      user {\n        name\n      }\n      movie{\n        title\n      }\n    }\n  }\n':
+    types.ReviewsDocument,
 };
 
 /**
@@ -51,38 +60,61 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Me {\n    me {\n      id\n      name\n      role\n    }\n  }\n"): (typeof documents)["\n  query Me {\n    me {\n      id\n      name\n      role\n    }\n  }\n"];
+export function graphql(
+  source: '\n  query Me {\n    me {\n      id\n      name\n      role\n    }\n  }\n',
+): (typeof documents)['\n  query Me {\n    me {\n      id\n      name\n      role\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation Logout {\n    logout\n  }\n"): (typeof documents)["\n  mutation Logout {\n    logout\n  }\n"];
+export function graphql(
+  source: '\n  mutation Logout {\n    logout\n  }\n',
+): (typeof documents)['\n  mutation Logout {\n    logout\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n"];
+export function graphql(
+  source: '\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n',
+): (typeof documents)['\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation UpdateUserRole($input: UpdateUserRoleInput!) {\n    updateUserRole(input: $input) {\n      id\n      role\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateUserRole($input: UpdateUserRoleInput!) {\n    updateUserRole(input: $input) {\n      id\n      role\n    }\n  }\n"];
+export function graphql(
+  source: '\n  mutation SendVerificationEmail($input: CreateUserInput!) {\n    sendVerificationEmail(input: $input)\n  }\n',
+): (typeof documents)['\n  mutation SendVerificationEmail($input: CreateUserInput!) {\n    sendVerificationEmail(input: $input)\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment UserTableFields on User {\n    id\n    name\n    email\n    role\n    createdAt\n  }\n"): (typeof documents)["\n  fragment UserTableFields on User {\n    id\n    name\n    email\n    role\n    createdAt\n  }\n"];
+export function graphql(
+  source: '\n  mutation UpdateUserRole($input: UpdateUserRoleInput!) {\n    updateUserRole(input: $input) {\n      id\n      role\n    }\n  }\n',
+): (typeof documents)['\n  mutation UpdateUserRole($input: UpdateUserRoleInput!) {\n    updateUserRole(input: $input) {\n      id\n      role\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Users {\n    users {\n      ...UserTableFields\n    }\n  }\n"): (typeof documents)["\n  query Users {\n    users {\n      ...UserTableFields\n    }\n  }\n"];
+export function graphql(
+  source: '\n  fragment UserTableFields on User {\n    id\n    name\n    email\n    role\n    createdAt\n  }\n',
+): (typeof documents)['\n  fragment UserTableFields on User {\n    id\n    name\n    email\n    role\n    createdAt\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n"];
+export function graphql(
+  source: '\n  query Users {\n    users {\n      ...UserTableFields\n    }\n  }\n',
+): (typeof documents)['\n  query Users {\n    users {\n      ...UserTableFields\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Reviews{\n    reviews {\n      id\n      content\n      isSpoiler\n      createdAt\n      user {\n        name\n      }\n      movie{\n        title\n      }\n    }\n  }\n"): (typeof documents)["\n  query Reviews{\n    reviews {\n      id\n      content\n      isSpoiler\n      createdAt\n      user {\n        name\n      }\n      movie{\n        title\n      }\n    }\n  }\n"];
+export function graphql(
+  source: '\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n',
+): (typeof documents)['\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query Reviews{\n    reviews {\n      id\n      content\n      isSpoiler\n      createdAt\n      user {\n        name\n      }\n      movie{\n        title\n      }\n    }\n  }\n',
+): (typeof documents)['\n  query Reviews{\n    reviews {\n      id\n      content\n      isSpoiler\n      createdAt\n      user {\n        name\n      }\n      movie{\n        title\n      }\n    }\n  }\n'];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
+  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never;
