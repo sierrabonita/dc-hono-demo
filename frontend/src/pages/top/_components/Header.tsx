@@ -30,8 +30,8 @@ export const Header = () => {
         </Heading>
       </HStack>
       <SimpleDialog isOpen={isDialogOpen} onOpenChange={handleOpenChange}>
-        {dialogType === 'login' && <LoginForm />}
-        {dialogType === 'signup' && <SignUpEmailForm />}
+        {dialogType === 'login' && <LoginForm setDialogType={setDialogType} />}
+        {dialogType === 'signup' && <SignUpEmailForm setDialogType={setDialogType} />}
       </SimpleDialog>
     </>
   );

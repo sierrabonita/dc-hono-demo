@@ -5,10 +5,11 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { LuMailCheck } from 'react-icons/lu';
 import { useMutation } from 'urql';
+import { TextButton } from '@/components/buttons/TextButton';
 import { Field } from '@/components/Field';
 import { toaster } from '@/components/toaster-instance';
 import { graphql } from '@/gql/index';
-import { Box, Button, Center, Heading, Input, Stack, Text } from '@/libs/chakra';
+import { Box, Button, Center, Flex, Heading, Input, Stack, Text } from '@/libs/chakra';
 
 const SEND_VERIFICATION_EMAIL_MUTATION = graphql(`
   mutation SendVerificationEmail($input: CreateUserInput!) {
@@ -16,7 +17,11 @@ const SEND_VERIFICATION_EMAIL_MUTATION = graphql(`
   }
 `);
 
-const SignUpEmailForm = () => {
+type Props = {
+  setDialogType: (type: 'login' | 'signup' | null) => void;
+};
+
+const SignUpEmailForm = ({ setDialogType }: Props) => {
   const [isSent, setIsSent] = useState(false);
   const [, executeMutation] = useMutation(SEND_VERIFICATION_EMAIL_MUTATION);
 
@@ -112,6 +117,9 @@ const SignUpEmailForm = () => {
           </Button>
         </Stack>
       </Box>
+      <Flex justifyContent="right">
+        <TextButton text="登録済の方はこちら" onClick={() => setDialogType('login')} />
+      </Flex>
     </Stack>
   );
 };

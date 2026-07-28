@@ -3,10 +3,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'urql';
+import { TextButton } from '@/components/buttons/TextButton';
 import { Field } from '@/components/Field';
 import { toaster } from '@/components/toaster-instance';
 import { graphql } from '@/gql/index';
-import { Box, Button, Flex, Heading, Input, Link, Stack } from '@/libs/chakra';
+import { Box, Button, Flex, Heading, Input, Stack } from '@/libs/chakra';
 
 const LOGIN_MUTATION = graphql(`
   mutation Login($input: LoginInput!) {
@@ -20,7 +21,11 @@ const LOGIN_MUTATION = graphql(`
   }
 `);
 
-const LoginForm = () => {
+type Props = {
+  setDialogType: (type: 'login' | 'signup' | null) => void;
+};
+
+const LoginForm = ({ setDialogType }: Props) => {
   const navigate = useNavigate();
   const [, executeMutation] = useMutation(LOGIN_MUTATION);
 
@@ -95,9 +100,7 @@ const LoginForm = () => {
       </Box>
 
       <Flex justifyContent="right">
-        <Link href="/signUp/" variant="plain" _hover={{ textDecoration: 'none' }}>
-          Sign Up?
-        </Link>
+        <TextButton text="新規登録はこちら" onClick={() => setDialogType('signup')} />
       </Flex>
     </Stack>
   );
