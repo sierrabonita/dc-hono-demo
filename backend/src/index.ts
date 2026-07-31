@@ -40,7 +40,7 @@ app.get('/verify-email', async (c) => {
 
   try {
     const payload = await verify(token, c.env.JWT_SECRET, 'HS256');
-    if (!payload || !payload.email || !payload.password || !payload.name) {
+    if (!payload?.email || !payload?.password || !payload?.name) {
       return c.text('無効なトークン形式です。', 400);
     }
 
