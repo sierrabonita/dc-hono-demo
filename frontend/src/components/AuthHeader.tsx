@@ -89,8 +89,8 @@ export const AuthHeader = () => {
         </Flex>
       </Flex>
       <ConfirmDialog
-        body={'ログアウトします。よろしいですか？'}
-        title={'ログアウト確認'}
+        body="ログアウトします。よろしいですか？"
+        title="ログアウト確認"
         isOpen={isOpenDialog}
         isLoading={isLoggingOut}
         onClickConfirm={handleClickAccept}
