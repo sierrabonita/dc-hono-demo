@@ -25,7 +25,7 @@ type Props = {
   setDialogType: (type: 'login' | 'signup' | null) => void;
 };
 
-const LoginForm = ({ setDialogType }: Props) => {
+export const LoginForm = ({ setDialogType }: Props) => {
   const navigate = useNavigate();
   const [, executeMutation] = useMutation(LOGIN_MUTATION);
 
@@ -105,5 +105,3 @@ const LoginForm = ({ setDialogType }: Props) => {
     </Stack>
   );
 };
-
-export default LoginForm;

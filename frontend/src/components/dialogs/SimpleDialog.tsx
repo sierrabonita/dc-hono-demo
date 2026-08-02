@@ -10,7 +10,7 @@ type Props = {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'cover' | 'full';
 };
 
-const SimpleDialog = (props: Props) => {
+export const SimpleDialog = (props: Props) => {
   const { isOpen, onOpenChange, children, title, footer, size = 'md' } = props;
 
   return (
@@ -35,5 +35,3 @@ const SimpleDialog = (props: Props) => {
     </Dialog.Root>
   );
 };
-
-export default SimpleDialog;

@@ -21,7 +21,7 @@ type Props = {
   setDialogType: (type: 'login' | 'signup' | null) => void;
 };
 
-const SignUpEmailForm = ({ setDialogType }: Props) => {
+export const SignUpEmailForm = ({ setDialogType }: Props) => {
   const [isSent, setIsSent] = useState(false);
   const [, executeMutation] = useMutation(SEND_VERIFICATION_EMAIL_MUTATION);
 
@@ -123,5 +123,3 @@ const SignUpEmailForm = ({ setDialogType }: Props) => {
     </Stack>
   );
 };
-
-export default SignUpEmailForm;

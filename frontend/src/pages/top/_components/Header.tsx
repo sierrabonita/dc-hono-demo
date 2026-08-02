@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { BiSolidCameraMovie } from 'react-icons/bi';
 import { TextButton } from '@/components/buttons/TextButton';
-import SimpleDialog from '@/components/dialogs/SimpleDialog';
-import LoginForm from '@/components/forms/LoginForm';
-import SignUpEmailForm from '@/components/forms/SignUpEmailForm';
+import { SimpleDialog } from '@/components/dialogs/SimpleDialog';
+import { LoginForm } from '@/components/forms/LoginForm';
+import { SignUpEmailForm } from '@/components/forms/SignUpEmailForm';
 import { Heading, HStack } from '@/libs/chakra';
 
 type DialogType = 'login' | 'signup' | null;

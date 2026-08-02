@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Client, cacheExchange, fetchExchange, Provider as UrqlProvider } from 'urql';
-import App from '@/App.tsx';
+import { App } from '@/App.tsx';
 import { Provider as ChakraProvider } from '@/libs/chakra';
 
 // urqlクライアントの初期化

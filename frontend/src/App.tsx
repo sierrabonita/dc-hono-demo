@@ -2,11 +2,11 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthLayout } from '@/components/layouts/AuthLayout';
 import { Toaster } from '@/components/Toaster';
 import { Admin } from '@/pages/admin';
-import Home from '@/pages/home';
-import SignUp from '@/pages/signUp';
-import Top from '@/pages/top';
+import { Home } from '@/pages/home';
+import { SignUp } from '@/pages/signUp';
+import { Top } from '@/pages/top';
 
-const App = () => {
+export const App = () => {
   return (
     <>
       <BrowserRouter>
@@ -24,5 +24,3 @@ const App = () => {
     </>
   );
 };
-
-export default App;

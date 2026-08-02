@@ -21,7 +21,7 @@ const REVIEWS_QUERY = graphql(`
   }
 `);
 
-const Top = () => {
+export const Top = () => {
   const [{ data, fetching }] = useQuery({ query: REVIEWS_QUERY });
 
   if (fetching) {
@@ -41,5 +41,3 @@ const Top = () => {
     </>
   );
 };
-
-export default Top;

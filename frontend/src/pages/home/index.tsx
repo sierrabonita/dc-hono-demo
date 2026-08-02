@@ -19,7 +19,7 @@ const ME_QUERY = graphql(`
   }
 `);
 
-const Home = () => {
+export const Home = () => {
   const [{ data, fetching }] = useQuery({ query: ME_QUERY });
 
   if (fetching) {
@@ -57,5 +57,3 @@ const Home = () => {
     </Box>
   );
 };
-
-export default Home;

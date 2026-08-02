@@ -12,7 +12,7 @@ type Props = {
   isLoading?: boolean;
 };
 
-const ConfirmDialog = (props: Props) => {
+export const ConfirmDialog = (props: Props) => {
   const {
     body,
     title,
@@ -53,5 +53,3 @@ const ConfirmDialog = (props: Props) => {
     </Dialog.Root>
   );
 };
-
-export default ConfirmDialog;

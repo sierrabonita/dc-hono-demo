@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IoOptions } from 'react-icons/io5';
 import { useQuery } from 'urql';
-import SimpleDialog from '@/components/dialogs/SimpleDialog';
+import { SimpleDialog } from '@/components/dialogs/SimpleDialog';
 import { UpdateUserRoleForm } from '@/components/forms/UpdateUserRoleForm';
 import { type FragmentType, graphql, useFragment } from '@/gql/index';
 import { Box, Center, Container, Heading, Spinner, Table, Text } from '@/libs/chakra';
