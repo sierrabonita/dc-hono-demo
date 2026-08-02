@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from 'urql';
 import ConfirmDialog from '@/components/dialogs/ConfirmDialog';
 import { graphql } from '@/gql/index';
@@ -58,9 +58,9 @@ export const AuthHeader = () => {
       >
         <Flex alignItems="center" gap={4}>
           <Heading size="md">
-            <RouterLink to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>
               Cinema Review
-            </RouterLink>
+            </Link>
           </Heading>
           {isAdmin && (
             <Badge
