@@ -3,7 +3,6 @@ import { AuthLayout } from '@/components/layouts/AuthLayout';
 import { Toaster } from '@/components/Toaster';
 import { Admin } from '@/pages/admin';
 import { Home } from '@/pages/home';
-import { SignUp } from '@/pages/signUp';
 import { Top } from '@/pages/top';
 
 export const App = () => {
@@ -12,7 +11,6 @@ export const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Top />} />
-          <Route path="/signUp/" element={<SignUp />} />
           <Route element={<AuthLayout />}>
             <Route path="/home" element={<Home />} />
             <Route path="/admin" element={<Admin />} />
