@@ -1,5 +1,7 @@
-import { USER_ROLES } from '@dc-hono-demo/shared/constants/roles';
-import { type CreateUserDto, createUserSchema } from '@dc-hono-demo/shared/schemas/user';
+import {
+  type SendVerificationEmailFormDto,
+  sendVerificationEmailFormSchema,
+} from '@dc-hono-demo/shared/schemas/user';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -12,7 +14,7 @@ import { graphql } from '@/gql/index';
 import { Box, Button, Center, Flex, Heading, Input, Stack, Text } from '@/libs/chakra';
 
 const SEND_VERIFICATION_EMAIL_MUTATION = graphql(`
-  mutation SendVerificationEmail($input: CreateUserInput!) {
+  mutation SendVerificationEmail($input: SendVerificationEmailInput!) {
     sendVerificationEmail(input: $input)
   }
 `);
@@ -28,25 +30,21 @@ export const SignUpEmailForm = ({ setDialogType }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
     getValues,
-  } = useForm<CreateUserDto>({
+  } = useForm<SendVerificationEmailFormDto>({
+    mode: 'onChange',
     defaultValues: {
       email: '',
-      password: '',
-      name: '',
-      role: USER_ROLES.NORMAL,
+      emailConfirm: '',
     },
-    resolver: zodResolver(createUserSchema),
+    resolver: zodResolver(sendVerificationEmailFormSchema),
   });
 
-  const onSubmit = async (data: CreateUserDto) => {
+  const onSubmit = async (data: SendVerificationEmailFormDto) => {
     const result = await executeMutation({
       input: {
         email: data.email,
-        password: data.password,
-        name: data.name,
-        role: data.role,
       },
     });
 
@@ -96,23 +94,26 @@ export const SignUpEmailForm = ({ setDialogType }: Props) => {
 
       <Box as="form" onSubmit={handleSubmit(onSubmit)}>
         <Stack gap={4}>
-          <Field label="名前" invalid={!!errors.name} errorText={errors.name?.message}>
-            <Input placeholder="名前を入力" {...register('name')} />
-          </Field>
-
           <Field label="メールアドレス" invalid={!!errors.email} errorText={errors.email?.message}>
             <Input type="email" placeholder="example@test.com" {...register('email')} />
           </Field>
 
           <Field
-            label="パスワード"
-            invalid={!!errors.password}
-            errorText={errors.password?.message}
+            label="メールアドレス（確認用）"
+            invalid={!!errors.emailConfirm}
+            errorText={errors.emailConfirm?.message}
           >
-            <Input type="password" placeholder="パスワードを入力" {...register('password')} />
+            <Input type="email" placeholder="もう一度入力" {...register('emailConfirm')} />
           </Field>
 
-          <Button type="submit" colorScheme="blue" width="full" mt={4} loading={isSubmitting}>
+          <Button
+            type="submit"
+            colorScheme="blue"
+            width="full"
+            mt={4}
+            loading={isSubmitting}
+            disabled={!isValid}
+          >
             新規登録する
           </Button>
         </Stack>

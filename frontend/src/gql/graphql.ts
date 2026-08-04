@@ -7,15 +7,18 @@ export type Incremental<T> =
 
 import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type CreateUserInput = {
-  email: string;
   name: string;
   password: string;
-  role: 0 | 1;
+  token: string;
 };
 
 export type LoginInput = {
   email: string;
   password: string;
+};
+
+export type SendVerificationEmailInput = {
+  email: string;
 };
 
 export type UpdateUserRoleInput = {
@@ -38,7 +41,7 @@ export type LoginMutationVariables = Exact<{
 export type LoginMutation = { login: { user: { id: number; name: string; role: 0 | 1 } } };
 
 export type SendVerificationEmailMutationVariables = Exact<{
-  input: CreateUserInput;
+  input: SendVerificationEmailInput;
 }>;
 
 export type SendVerificationEmailMutation = { sendVerificationEmail: boolean };
@@ -72,6 +75,12 @@ export type GetMyProfileWithReviewsQuery = {
     reviews: Array<{ id: number; content: string; createdAt: string; movie: { title: string } }>;
   } | null;
 };
+
+export type CreateUserMutationVariables = Exact<{
+  input: CreateUserInput;
+}>;
+
+export type CreateUserMutation = { createUser: { id: number; name: string; email: string } };
 
 export type ReviewsQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -213,7 +222,10 @@ export const SendVerificationEmailDocument = {
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
           type: {
             kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'CreateUserInput' } },
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'SendVerificationEmailInput' },
+            },
           },
         },
       ],
@@ -365,6 +377,50 @@ export const GetMyProfileWithReviewsDocument = {
     },
   ],
 } as unknown as DocumentNode<GetMyProfileWithReviewsQuery, GetMyProfileWithReviewsQueryVariables>;
+export const CreateUserDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'CreateUser' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'CreateUserInput' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createUser' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'input' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'email' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CreateUserMutation, CreateUserMutationVariables>;
 export const ReviewsDocument = {
   kind: 'Document',
   definitions: [

@@ -40,10 +40,13 @@ export const typeDefs = buildSchema(`
   }
 
   input CreateUserInput {
+    token: String!
     name: String!
-    email: String!
     password: String!
-    role: UserRole!
+  }
+
+  input SendVerificationEmailInput {
+    email: String!
   }
 
   input UpdateMeInput {
@@ -76,6 +79,6 @@ export const typeDefs = buildSchema(`
     deleteUser(id: Int!): User!
     login(input: LoginInput!): AuthPayload!
     logout: Boolean!
-    sendVerificationEmail(input: CreateUserInput!): Boolean!
+    sendVerificationEmail(input: SendVerificationEmailInput!): Boolean!
   }
 `);

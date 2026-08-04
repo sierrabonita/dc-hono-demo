@@ -13,14 +13,35 @@ export const userSchema = z.object({
 
 export type User = z.infer<typeof userSchema>;
 
-export const createUserSchema = z.object({
+export const registerCompleteSchema = z.object({
   name: z.string().min(1, '名前を入力してください'),
-  email: z.string().email('無効なメールアドレス形式です'),
   password: z.string().min(6, 'パスワードは6文字以上で入力してください'),
-  role: z.union([z.literal(USER_ROLES.NORMAL), z.literal(USER_ROLES.ADMIN)]),
+});
+
+export type RegisterCompleteDto = z.infer<typeof registerCompleteSchema>;
+
+export const createUserSchema = registerCompleteSchema.extend({
+  token: z.string().min(1, '無効なトークンです'),
 });
 
 export type CreateUserDto = z.infer<typeof createUserSchema>;
+
+export const sendVerificationEmailSchema = z.object({
+  email: z.string().email('無効なメールアドレス形式です'),
+});
+
+export type SendVerificationEmailDto = z.infer<typeof sendVerificationEmailSchema>;
+
+export const sendVerificationEmailFormSchema = sendVerificationEmailSchema
+  .extend({
+    emailConfirm: z.string().min(1, '確認用メールアドレスを入力してください'),
+  })
+  .refine((data) => data.email === data.emailConfirm, {
+    message: 'メールアドレスが一致しません',
+    path: ['emailConfirm'],
+  });
+
+export type SendVerificationEmailFormDto = z.infer<typeof sendVerificationEmailFormSchema>;
 
 export const updateMeSchema = z.object({
   name: z.string().min(1, '名前を入力してください').optional(),

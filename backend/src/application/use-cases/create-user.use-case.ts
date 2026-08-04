@@ -4,7 +4,7 @@ import type { DbUser, UserRepository } from '@/domain/repositories/user.reposito
 import { hashPassword } from '@/utils/crypto';
 
 export const createUserUseCase = (userRepository: UserRepository) => {
-  return async (input: CreateUserDto): Promise<DbUser> => {
+  return async (input: CreateUserDto, email: string, role: number): Promise<DbUser> => {
     const result = createUserSchema.safeParse(input);
 
     if (!result.success) {
@@ -19,9 +19,9 @@ export const createUserUseCase = (userRepository: UserRepository) => {
     const newUser = await userRepository.create({
       name: validData.name,
       slug: newSlug,
-      email: validData.email,
+      email: email,
       password: hashedPassword,
-      role: validData.role,
+      role: role as 0 | 1,
     });
 
     return newUser;
