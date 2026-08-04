@@ -1,7 +1,12 @@
-import { sendVerificationEmailSchema, type SendVerificationEmailDto } from '@dc-hono-demo/shared/schemas/user';
+import {
+  type SendVerificationEmailDto,
+  sendVerificationEmailSchema,
+} from '@dc-hono-demo/shared/schemas/user';
+
 import { GraphQLError } from 'graphql';
 import { sign } from 'hono/jwt';
 import type { UserRepository } from '@/domain/repositories/user.repository';
+
 import type { Bindings } from '@/types';
 
 export const sendVerificationEmailUseCase = (userRepository: UserRepository, env: Bindings) => {
