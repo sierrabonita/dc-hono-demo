@@ -1,7 +1,7 @@
 import {
   type SendVerificationEmailDto,
   sendVerificationEmailSchema,
-} from '@dc-hono-demo/shared/schemas/user';
+} from '@dc-hono-demo/shared/schemas/auth';
 
 import { GraphQLError } from 'graphql';
 import { sign } from 'hono/jwt';

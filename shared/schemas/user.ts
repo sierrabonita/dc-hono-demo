@@ -26,23 +26,6 @@ export const createUserSchema = registerCompleteSchema.extend({
 
 export type CreateUserDto = z.infer<typeof createUserSchema>;
 
-export const sendVerificationEmailSchema = z.object({
-  email: z.string().email('無効なメールアドレス形式です'),
-});
-
-export type SendVerificationEmailDto = z.infer<typeof sendVerificationEmailSchema>;
-
-export const sendVerificationEmailFormSchema = sendVerificationEmailSchema
-  .extend({
-    emailConfirm: z.string().min(1, '確認用メールアドレスを入力してください'),
-  })
-  .refine((data) => data.email === data.emailConfirm, {
-    message: 'メールアドレスが一致しません',
-    path: ['emailConfirm'],
-  });
-
-export type SendVerificationEmailFormDto = z.infer<typeof sendVerificationEmailFormSchema>;
-
 export const updateMeSchema = z.object({
   name: z.string().min(1, '名前を入力してください').optional(),
   email: z.string().email('無効なメールアドレス形式です').optional(),

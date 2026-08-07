@@ -1,16 +1,14 @@
-import type { LoginDto } from '@dc-hono-demo/shared/schemas/auth';
-import {
-  type CreateUserDto,
-  type DeleteUserDto,
-  type SendVerificationEmailDto,
-  sendVerificationEmailSchema,
-  type UpdateMeDto,
-  type UpdateUserRoleDto,
+import type { LoginDto, SendVerificationEmailDto } from '@dc-hono-demo/shared/schemas/auth';
+import type {
+  CreateUserDto,
+  DeleteUserDto,
+  UpdateMeDto,
+  UpdateUserRoleDto,
 } from '@dc-hono-demo/shared/schemas/user';
 import { drizzle } from 'drizzle-orm/d1';
 import { GraphQLError } from 'graphql';
 import type { Context } from 'hono';
-import { sign, verify } from 'hono/jwt';
+import { verify } from 'hono/jwt';
 // Use Cases
 import { createUserUseCase } from '@/application/use-cases/create-user.use-case';
 import { getMeUseCase } from '@/application/use-cases/get-me.use-case';

@@ -1,7 +1,7 @@
 import {
   type SendVerificationEmailFormDto,
   sendVerificationEmailFormSchema,
-} from '@dc-hono-demo/shared/schemas/user';
+} from '@dc-hono-demo/shared/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';

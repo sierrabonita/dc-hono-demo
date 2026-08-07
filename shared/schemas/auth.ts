@@ -6,3 +6,20 @@ export const loginSchema = z.object({
 });
 
 export type LoginDto = z.infer<typeof loginSchema>;
+
+export const sendVerificationEmailSchema = z.object({
+  email: z.string().email('無効なメールアドレス形式です'),
+});
+
+export type SendVerificationEmailDto = z.infer<typeof sendVerificationEmailSchema>;
+
+export const sendVerificationEmailFormSchema = sendVerificationEmailSchema
+  .extend({
+    emailConfirm: z.string().min(1, '確認用メールアドレスを入力してください'),
+  })
+  .refine((data) => data.email === data.emailConfirm, {
+    message: 'メールアドレスが一致しません',
+    path: ['emailConfirm'],
+  });
+
+export type SendVerificationEmailFormDto = z.infer<typeof sendVerificationEmailFormSchema>;
