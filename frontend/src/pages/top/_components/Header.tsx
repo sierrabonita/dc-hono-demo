@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { BiSolidCameraMovie } from 'react-icons/bi';
 import { TextButton } from '@/components/buttons/TextButton';
 import { SimpleDialog } from '@/components/dialogs/SimpleDialog';
@@ -11,11 +11,11 @@ type DialogType = 'login' | 'signup' | null;
 export const Header = () => {
   const [dialogType, setDialogType] = useState<DialogType>(null);
   const isDialogOpen = dialogType !== null;
-  const handleOpenChange = (open: boolean) => {
+  const handleOpenChange = useCallback((open: boolean) => {
     if (!open) {
       setDialogType(null);
     }
-  };
+  }, []);
 
   return (
     <>

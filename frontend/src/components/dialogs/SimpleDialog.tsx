@@ -1,4 +1,5 @@
 'use client';
+import { memo } from 'react';
 import { CloseButton, Dialog, Portal } from '@/libs/chakra';
 
 type Props = {
@@ -10,7 +11,7 @@ type Props = {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'cover' | 'full';
 };
 
-export const SimpleDialog = (props: Props) => {
+export const SimpleDialog = memo((props: Props) => {
   const { isOpen, onOpenChange, children, title, footer, size = 'md' } = props;
 
   return (
@@ -34,4 +35,4 @@ export const SimpleDialog = (props: Props) => {
       </Portal>
     </Dialog.Root>
   );
-};
+});

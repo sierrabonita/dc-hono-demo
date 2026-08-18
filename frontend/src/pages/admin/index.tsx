@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { IoOptions } from 'react-icons/io5';
 import { useQuery } from 'urql';
 import { SimpleDialog } from '@/components/dialogs/SimpleDialog';
@@ -45,13 +45,12 @@ const UserTable = ({ users }: { users: FragmentType<typeof USER_TABLE_FIELDS>[] 
     setIsOpenEditDialog(true);
   };
 
-  const handleOpenChange = (open: boolean) => {
+  const handleOpenChange = useCallback((open: boolean) => {
     setIsOpenEditDialog(open);
     if (!open) {
       setSelectedUser(null);
-      setIsOpenEditDialog(false);
     }
-  };
+  }, []);
 
   return (
     <>
