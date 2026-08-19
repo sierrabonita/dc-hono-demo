@@ -4,7 +4,7 @@ import { Box, Flex } from '@/libs/chakra';
 
 export const AuthLayout = () => {
   return (
-    <Flex direction="column" minHeight="100vh" bg="gray.50">
+    <Flex direction="column" minHeight="100vh">
       <AuthHeader />
       <Box flex={1} p={8}>
         <Outlet />
