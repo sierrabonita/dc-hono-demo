@@ -52,6 +52,13 @@ export type UpdateUserRoleMutationVariables = Exact<{
 
 export type UpdateUserRoleMutation = { updateUserRole: { id: number; role: 0 | 1 } };
 
+export type ReviewListFieldsFragment = {
+  id: number;
+  content: string;
+  createdAt: string;
+  movie: { title: string };
+} & { ' $fragmentName'?: 'ReviewListFieldsFragment' };
+
 export type UserTableFieldsFragment = {
   id: number;
   name: string;
@@ -72,7 +79,7 @@ export type GetMyProfileWithReviewsQuery = {
   me: {
     id: number;
     name: string;
-    reviews: Array<{ id: number; content: string; createdAt: string; movie: { title: string } }>;
+    reviews: Array<{ ' $fragmentRefs'?: { ReviewListFieldsFragment: ReviewListFieldsFragment } }>;
   } | null;
 };
 
@@ -95,6 +102,32 @@ export type ReviewsQuery = {
   }>;
 };
 
+export const ReviewListFieldsFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ReviewListFields' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Review' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'content' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'movie' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'title' } }],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ReviewListFieldsFragment, unknown>;
 export const UserTableFieldsFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -355,21 +388,32 @@ export const GetMyProfileWithReviewsDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'content' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'movie' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [{ kind: 'Field', name: { kind: 'Name', value: 'title' } }],
-                        },
-                      },
+                      { kind: 'FragmentSpread', name: { kind: 'Name', value: 'ReviewListFields' } },
                     ],
                   },
                 },
               ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ReviewListFields' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Review' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'content' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'movie' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'title' } }],
             },
           },
         ],

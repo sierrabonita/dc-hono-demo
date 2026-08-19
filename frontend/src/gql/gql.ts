@@ -19,9 +19,10 @@ type Documents = {
   '\n  mutation Login($input: LoginInput!) {\n    login(input: $input) {\n      user {\n        id\n        name\n        role\n      }\n    }\n  }\n': typeof types.LoginDocument;
   '\n  mutation SendVerificationEmail($input: SendVerificationEmailInput!) {\n    sendVerificationEmail(input: $input)\n  }\n': typeof types.SendVerificationEmailDocument;
   '\n  mutation UpdateUserRole($input: UpdateUserRoleInput!) {\n    updateUserRole(input: $input) {\n      id\n      role\n    }\n  }\n': typeof types.UpdateUserRoleDocument;
+  '\n  fragment ReviewListFields on Review {\n    id\n    content\n    createdAt\n    movie {\n      title\n    }\n  }\n': typeof types.ReviewListFieldsFragmentDoc;
   '\n  fragment UserTableFields on User {\n    id\n    name\n    email\n    role\n    createdAt\n  }\n': typeof types.UserTableFieldsFragmentDoc;
   '\n  query Users {\n    users {\n      ...UserTableFields\n    }\n  }\n': typeof types.UsersDocument;
-  '\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n': typeof types.GetMyProfileWithReviewsDocument;
+  '\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        ...ReviewListFields\n      }\n    }\n  }\n': typeof types.GetMyProfileWithReviewsDocument;
   '\n  mutation CreateUser($input: CreateUserInput!) {\n    createUser(input: $input) {\n      id\n      name\n      email\n    }\n  }\n': typeof types.CreateUserDocument;
   '\n  query Reviews{\n    reviews {\n      id\n      content\n      isSpoiler\n      createdAt\n      user {\n        name\n      }\n      movie{\n        title\n      }\n    }\n  }\n': typeof types.ReviewsDocument;
 };
@@ -34,10 +35,12 @@ const documents: Documents = {
     types.SendVerificationEmailDocument,
   '\n  mutation UpdateUserRole($input: UpdateUserRoleInput!) {\n    updateUserRole(input: $input) {\n      id\n      role\n    }\n  }\n':
     types.UpdateUserRoleDocument,
+  '\n  fragment ReviewListFields on Review {\n    id\n    content\n    createdAt\n    movie {\n      title\n    }\n  }\n':
+    types.ReviewListFieldsFragmentDoc,
   '\n  fragment UserTableFields on User {\n    id\n    name\n    email\n    role\n    createdAt\n  }\n':
     types.UserTableFieldsFragmentDoc,
   '\n  query Users {\n    users {\n      ...UserTableFields\n    }\n  }\n': types.UsersDocument,
-  '\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n':
+  '\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        ...ReviewListFields\n      }\n    }\n  }\n':
     types.GetMyProfileWithReviewsDocument,
   '\n  mutation CreateUser($input: CreateUserInput!) {\n    createUser(input: $input) {\n      id\n      name\n      email\n    }\n  }\n':
     types.CreateUserDocument,
@@ -93,6 +96,12 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
+  source: '\n  fragment ReviewListFields on Review {\n    id\n    content\n    createdAt\n    movie {\n      title\n    }\n  }\n',
+): (typeof documents)['\n  fragment ReviewListFields on Review {\n    id\n    content\n    createdAt\n    movie {\n      title\n    }\n  }\n'];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
   source: '\n  fragment UserTableFields on User {\n    id\n    name\n    email\n    role\n    createdAt\n  }\n',
 ): (typeof documents)['\n  fragment UserTableFields on User {\n    id\n    name\n    email\n    role\n    createdAt\n  }\n'];
 /**
@@ -105,8 +114,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n',
-): (typeof documents)['\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        id\n        content\n        createdAt\n        movie {\n          title\n        }\n      }\n    }\n  }\n'];
+  source: '\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        ...ReviewListFields\n      }\n    }\n  }\n',
+): (typeof documents)['\n  query GetMyProfileWithReviews {\n    me {\n      id\n      name\n      reviews {\n        ...ReviewListFields\n      }\n    }\n  }\n'];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

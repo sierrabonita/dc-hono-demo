@@ -1,6 +1,7 @@
 import { useQuery } from 'urql';
+import { ReviewList } from '@/components/lists/ReviewList';
 import { graphql } from '@/gql/index';
-import { Box, Center, Heading, HStack, List, Spinner, Text } from '@/libs/chakra';
+import { Box, Center, Heading, Spinner } from '@/libs/chakra';
 
 const ME_QUERY = graphql(`
   query GetMyProfileWithReviews {
@@ -8,12 +9,7 @@ const ME_QUERY = graphql(`
       id
       name
       reviews {
-        id
-        content
-        createdAt
-        movie {
-          title
-        }
+        ...ReviewListFields
       }
     }
   }
@@ -39,21 +35,7 @@ export const Home = () => {
   return (
     <Box>
       <Heading mb={4}>レビュー履歴</Heading>
-      <List.Root>
-        {reviews.map((review) => (
-          <>
-            <List.Item pb="1rem" listStyle="none">
-              <HStack justifyContent="start">
-                <Text fontSize="xs">{review.createdAt}</Text>
-                <Text fontWeight="bold" fontSize="md">
-                  {review.movie.title}
-                </Text>
-                <Text>{review.content}</Text>
-              </HStack>
-            </List.Item>
-          </>
-        ))}
-      </List.Root>
+      <ReviewList reviews={reviews} />
     </Box>
   );
 };
