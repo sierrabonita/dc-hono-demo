@@ -2,10 +2,10 @@ import { useQuery } from 'urql';
 import { graphql } from '@/gql/index';
 import { Center, Container, Spinner } from '@/libs/chakra';
 import { Header } from '@/pages/top/_components/Header';
-import { ReviewList } from '@/pages/top/_components/ReviewList';
+import { LatestReviews } from '@/pages/top/_components/LatestReviews';
 
-const REVIEWS_QUERY = graphql(`
-  query Reviews{
+const LATEST_REVIEWS_QUERY = graphql(`
+  query LatestReviews{
     reviews {
       id
       content
@@ -22,7 +22,7 @@ const REVIEWS_QUERY = graphql(`
 `);
 
 export const Top = () => {
-  const [{ data, fetching }] = useQuery({ query: REVIEWS_QUERY });
+  const [{ data, fetching }] = useQuery({ query: LATEST_REVIEWS_QUERY });
 
   if (fetching) {
     return (
@@ -36,7 +36,7 @@ export const Top = () => {
     <>
       <Header />
       <Container maxW="lg">
-        <ReviewList data={data} />
+        <LatestReviews data={data} />
       </Container>
     </>
   );

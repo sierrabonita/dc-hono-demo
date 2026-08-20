@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import type { ReviewsQuery } from '@/gql/graphql';
+import type { LatestReviewsQuery } from '@/gql/graphql';
 import { Flex, Heading, HStack, List, Stack, Text } from '@/libs/chakra';
 
-type ReviewListProps = {
-  data?: ReviewsQuery;
+type LatestReviewsProps = {
+  data?: LatestReviewsQuery;
 };
 
-type ReviewListItemProps = {
-  review: ReviewsQuery['reviews'][0];
+type LatestReviewsItemProps = {
+  review: LatestReviewsQuery['reviews'][0];
 };
 
-const ReviewListTitle = () => {
+const LatestReviewsTitle = () => {
   return (
     <Heading fontSize="2xl" fontWeight="bold" textAlign="center">
       Latest Reviews
@@ -18,7 +18,7 @@ const ReviewListTitle = () => {
   );
 };
 
-const ReviewListItem = ({ review }: ReviewListItemProps) => {
+const LatestReviewsItem = ({ review }: LatestReviewsItemProps) => {
   const [isContextSpoilerOpen, setIsContextSpoilerOpen] = useState(false);
 
   return (
@@ -44,13 +44,13 @@ const ReviewListItem = ({ review }: ReviewListItemProps) => {
   );
 };
 
-export const ReviewList = ({ data }: ReviewListProps) => {
+export const LatestReviews = ({ data }: LatestReviewsProps) => {
   return (
     <Stack gap="2">
-      <ReviewListTitle />
+      <LatestReviewsTitle />
       <List.Root>
         {data?.reviews.map((review) => (
-          <ReviewListItem key={review.id} review={review} />
+          <LatestReviewsItem key={review.id} review={review} />
         ))}
       </List.Root>
     </Stack>
