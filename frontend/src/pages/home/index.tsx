@@ -1,7 +1,7 @@
 import { useQuery } from 'urql';
-import { ReviewList } from '@/components/lists/ReviewList';
 import { graphql } from '@/gql/index';
 import { Box, Center, Heading, Spinner } from '@/libs/chakra';
+import { ReviewList } from '@/pages/home/_components/ReviewList';
 
 const ME_QUERY = graphql(`
   query GetMyProfileWithReviews {
