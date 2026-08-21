@@ -2457,6 +2457,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hono/zod-validator@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "@hono/zod-validator@npm:0.9.0"
+  peerDependencies:
+    hono: ">=4.11.2"
+    zod: ^3.25.0 || ^4.0.0
+  checksum: 10c0/74502187fb18113c2f4254050501e6da84f86b44b7a598675379ec2e8f4a3db571bc1a17d48da3a75c01dcbf251c1a7c8cc12cef4e53523aade0f793b64586e3
+  languageName: node
+  linkType: hard
+
 "@hookform/resolvers@npm:^5.4.0":
   version: 5.4.0
   resolution: "@hookform/resolvers@npm:5.4.0"
@@ -4409,13 +4419,13 @@ __metadata:
   dependencies:
     "@cloudflare/workers-types": "npm:^4.20260525.1"
     "@dc-hono-demo/shared": "npm:*"
-    "@hono/graphql-server": "npm:^0.7.0"
+    "@hono/zod-validator": "npm:^0.9.0"
     "@types/node": "npm:^25.9.2"
     drizzle-kit: "npm:latest"
     drizzle-orm: "npm:latest"
-    graphql: "npm:^16.14.1"
     hono: "npm:^4.0.0"
     wrangler: "npm:^4.0.0"
+    zod: "npm:^4.4.3"
   languageName: unknown
   linkType: soft
 
@@ -4434,6 +4444,20 @@ __metadata:
   checksum: 10c0/44bbea61ec54df6845f5f6f149c99057370081f1041d6e8dbc92835630ce37da9adc102528ebebd37f563342da2a5eea525d24698ced6674cdcfadb2ed613136
   languageName: node
   linkType: hard
+
+"bff@workspace:bff":
+  version: 0.0.0-use.local
+  resolution: "bff@workspace:bff"
+  dependencies:
+    "@cloudflare/workers-types": "npm:^4.20260525.1"
+    "@dc-hono-demo/shared": "npm:*"
+    "@hono/graphql-server": "npm:^0.7.0"
+    "@types/node": "npm:^25.9.2"
+    graphql: "npm:^16.14.1"
+    hono: "npm:^4.0.0"
+    wrangler: "npm:^4.0.0"
+  languageName: unknown
+  linkType: soft
 
 "blake3-wasm@npm:2.1.5":
   version: 2.1.5

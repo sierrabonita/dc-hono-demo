@@ -1,0 +1,8 @@
+name = "hono-bff"
+main = "src/index.ts"
+compatibility_date = "2024-04-01"
+
+[vars]
+ENVIRONMENT = "development"
+FRONTEND_URL = "http://localhost:5173"
+BACKEND_URL = "http://backend:3002"

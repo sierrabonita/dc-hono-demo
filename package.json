@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "workspaces": [
+    "bff",
     "backend",
     "frontend",
     "shared"

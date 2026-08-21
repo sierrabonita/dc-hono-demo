@@ -1,8 +1,12 @@
 import type { Context } from 'hono';
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
 import { sign, verify } from 'hono/jwt';
-import type { DbUser } from '@/domain/repositories/user.repository';
 import type { Bindings } from '@/types';
+
+type SessionUser = {
+  id: number;
+  role: number;
+};
 
 export const getAuthSession = async (
   c: Context<{ Bindings: Bindings }>,
@@ -22,7 +26,7 @@ export const getAuthSession = async (
 
 export const setAuthSession = async (
   c: Context<{ Bindings: Bindings }>,
-  user: DbUser,
+  user: SessionUser,
 ): Promise<void> => {
   const payload = {
     id: user.id,

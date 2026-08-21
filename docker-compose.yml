@@ -1,4 +1,13 @@
 services:
+  setup:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - root_node_modules:/app/node_modules
+    command: yarn install
   backend:
     build:
       context: .
@@ -7,11 +16,30 @@ services:
     volumes:
       - ./:/app
       - root_node_modules:/app/node_modules
-      - backend_node_modules:/app/backend/node_modules
       - wrangler-local-state:/app/backend/.wrangler
     ports:
+      - "3002:3002"
+    depends_on:
+      setup:
+        condition: service_completed_successfully
+    command: yarn dev
+  bff:
+    build:
+      context: .
+      dockerfile: bff/Dockerfile
+    working_dir: /app/bff
+    volumes:
+      - ./:/app
+      - root_node_modules:/app/node_modules
+      - wrangler-bff-state:/app/bff/.wrangler
+    ports:
       - "3001:3001"
-    command: sh -c "yarn install && yarn dev"
+    depends_on:
+      setup:
+        condition: service_completed_successfully
+      backend:
+        condition: service_started
+    command: yarn dev
   frontend:
     build:
       context: .
@@ -22,12 +50,14 @@ services:
     volumes:
       - ./:/app
       - root_node_modules:/app/node_modules
-      - frontend_node_modules:/app/frontend/node_modules
     environment:
       - NODE_ENV=development
     depends_on:
-      - backend
-    command: sh -c "yarn install && yarn dev --host"
+      setup:
+        condition: service_completed_successfully
+      bff:
+        condition: service_started
+    command: yarn dev --host
   mailpit:
     image: axllent/mailpit:latest
     container_name: mailpit
@@ -37,6 +67,5 @@ services:
 
 volumes:
   wrangler-local-state:
+  wrangler-bff-state:
   root_node_modules:
-  backend_node_modules:
-  frontend_node_modules:

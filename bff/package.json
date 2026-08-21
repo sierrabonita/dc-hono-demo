@@ -1,0 +1,24 @@
+{
+  "name": "bff",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev src/index.ts --port 3001 --ip 0.0.0.0",
+    "deploy": "wrangler deploy --minify src/index.ts"
+  },
+  "dependencies": {
+    "@dc-hono-demo/shared": "*",
+    "@hono/graphql-server": "^0.7.0",
+    "graphql": "^16.14.1",
+    "hono": "^4.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260525.1",
+    "@types/node": "^25.9.2",
+    "wrangler": "^4.0.0"
+  },
+  "volta": {
+    "node": "26.3.0",
+    "yarn": "4.16.0"
+  }
+}
