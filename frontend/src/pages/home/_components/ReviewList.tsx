@@ -12,16 +12,21 @@ const REVIEW_LIST_FIELDS = graphql(`
   }
 `);
 
-export const ReviewList = ({ reviews }: { reviews: FragmentType<typeof REVIEW_LIST_FIELDS>[] }) => {
+type Props = { reviews: FragmentType<typeof REVIEW_LIST_FIELDS>[] };
+
+export const ReviewList = (props: Props) => {
+  const { reviews } = props;
   const reviewsData = useFragment(REVIEW_LIST_FIELDS, reviews);
 
   return (
     <List.Root>
       {reviewsData.map((review) => (
         <>
-          <List.Item pb="1rem" listStyle="none">
-            <HStack justifyContent="start">
-              <Text fontSize="xs">{review.createdAt}</Text>
+          <List.Item key={review.id} pb="1rem" listStyle="none">
+            <HStack justifyContent="start" alignItems="flex-start">
+              <Text fontSize="xs" whiteSpace="nowrap">
+                {review.createdAt}
+              </Text>
               <Text fontWeight="bold" fontSize="md">
                 {review.movie.title}
               </Text>
